@@ -13,10 +13,10 @@ const Welcome = () => {
       setShowSubtext(true);
     }, 1500);
 
-    // Navigate to main landing page after 3.5 seconds
+    // Navigate to main landing page after 4.5 seconds
     const navigationTimer = setTimeout(() => {
       navigate('/home');
-    }, 3500);
+    }, 4500);
 
     return () => {
       clearTimeout(subtextTimer);
