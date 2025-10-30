@@ -281,6 +281,27 @@ body {
     height: 40px;
 }
 
+.logo-img {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(19, 136, 8, 0.3));
+    transition: transform 0.3s ease;
+}
+
+.logo-img:hover {
+    transform: scale(1.05);
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #138808, #0090d9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
 .location-selector {
     display: flex;
     align-items: center;
@@ -417,9 +438,11 @@ body {
 
 .category-pills {
     display: flex;
-    gap: var(--space-12);
-    overflow-x: auto;
-    padding: var(--space-8) 0;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding: 1rem 0;
     scrollbar-width: none;
 }
 
@@ -428,22 +451,25 @@ body {
 }
 
 .category-pill {
-    padding: var(--space-8) var(--space-16);
+    padding: 0.75rem 1.5rem;
     background-color: var(--apollo-bg);
-    border: 1px solid var(--color-border);
+    border: 2px solid var(--color-border);
     border-radius: var(--radius-full);
     white-space: nowrap;
     cursor: pointer;
     transition: all var(--duration-normal);
-    font-size: 0.9rem;
-    font-weight: 500;
+    font-size: 1rem;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .category-pill:hover,
 .category-pill.active {
-    background-color: var(--color-primary);
+    background: linear-gradient(135deg, var(--apollo-green), var(--apollo-blue));
     color: white;
-    border-color: var(--color-primary);
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(19, 136, 8, 0.3);
 }
 
 /* Page Sections */

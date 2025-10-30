@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Welcome from './src/pages/Welcome';
 import DoctorPage from './src/pages/Doctor';
-import LabTestsPage from './src/pages/Lab Tests';
+import LabTestsPage from './src/pages/LabTests';
 import NinjaXPage from './src/pages/NinjaX';
 
 function App() {
