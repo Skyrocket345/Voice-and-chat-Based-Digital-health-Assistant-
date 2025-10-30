@@ -3,108 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ninja Xperts - Health is Wealth</title>
+    <title>MediSage - Health is Wealth</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         :root {
-            --color-white: rgba(255, 255, 255, 1);
-            --color-cream-50: rgba(252, 252, 249, 1);
-            --color-gray-200: rgba(245, 245, 245, 1);
-            --color-gray-300: rgba(167, 169, 169, 1);
-            --color-slate-500: rgba(98, 108, 113, 1);
-            --color-slate-900: rgba(19, 52, 59, 1);
-            --color-teal-500: rgba(33, 128, 141, 1);
-            
-            --apollo-green: #138808;
-            --apollo-green-dark: #0f6906;
-            --apollo-orange: #ff6f3d;
-            --apollo-blue: #0090d9;
-            --apollo-bg: #f8f9fa;
-            
-            --color-background: var(--apollo-bg);
-            --color-text: var(--color-slate-900);
-            --color-text-secondary: var(--color-slate-500);
-            --color-primary: var(--apollo-green);
-            --color-border: rgba(94, 82, 64, 0.2);
-            
-            --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            --space-8: 8px;
-            --space-12: 12px;
-            --space-16: 16px;
-            --space-24: 24px;
-            --radius-base: 8px;
-            --radius-lg: 12px;
-            --radius-full: 9999px;
-            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
-            --duration-normal: 250ms;
-            --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+            --color-primary: #138808;
+            --color-secondary: #0090d9;
+            --color-bg-mint: rgba(19, 136, 8, 0.08);
+            --color-bg-peach: rgba(245, 158, 11, 0.08);
+            --color-bg-lavender: rgba(147, 51, 234, 0.08);
+            --color-bg-blue: rgba(0, 144, 217, 0.08);
+            --color-text: #1f2121;
+            --color-surface: #ffffff;
+            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: var(--font-family-base);
-            background-color: var(--color-background);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #fcfcf9;
             color: var(--color-text);
-            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* Header */
         .top-header {
-            background-color: var(--color-white);
-            border-bottom: 1px solid #e5e7eb;
-            padding: var(--space-12) 0;
+            background: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        .logo {
-            height: 40px;
+        .container-custom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
         }
 
-        .location-selector {
-            display: flex;
-            align-items: center;
-            gap: var(--space-8);
-            cursor: pointer;
-            padding: var(--space-8) var(--space-12);
-            border-radius: var(--radius-base);
-            transition: background-color var(--duration-normal);
+        .logo-img {
+            height: 60px;
+            width: auto;
         }
 
-        .location-selector:hover {
-            background-color: var(--apollo-bg);
-        }
-
-        .location-text {
-            font-size: 0.75rem;
-            color: var(--color-text-secondary);
-            margin-bottom: 2px;
-        }
-
-        .location-value {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--color-text);
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #138808, #0090d9);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .header-icons {
             display: flex;
-            gap: var(--space-24);
             align-items: center;
+            gap: 1rem;
         }
 
         .header-icon {
             position: relative;
+            font-size: 1.5rem;
             cursor: pointer;
-            font-size: 1.3rem;
             color: var(--color-text);
-            transition: color var(--duration-normal);
+            transition: var(--transition);
         }
 
         .header-icon:hover {
@@ -115,220 +86,236 @@
             position: absolute;
             top: -8px;
             right: -8px;
-            background-color: var(--apollo-orange);
+            background: #ff5459;
             color: white;
-            font-size: 0.7rem;
-            font-weight: bold;
-            width: 18px;
-            height: 18px;
             border-radius: 50%;
+            width: 20px;
+            height: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
         }
 
         .login-btn {
-            background-color: var(--color-white);
-            border: 1px solid var(--color-border);
-            padding: var(--space-8) var(--space-16);
-            border-radius: var(--radius-base);
-            font-weight: 500;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
             cursor: pointer;
-            transition: all var(--duration-normal);
             display: flex;
             align-items: center;
-            gap: var(--space-8);
+            gap: 0.5rem;
+            transition: var(--transition);
         }
 
         .login-btn:hover {
-            border-color: var(--color-primary);
-            color: var(--color-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(19, 136, 8, 0.3);
         }
 
-        /* Navigation */
-        .main-nav {
-            background-color: var(--apollo-green);
-            padding: 0;
-            box-shadow: var(--shadow-md);
+        .motion-dock-container {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999;
         }
 
-        .nav-menu {
+        .dock-outer {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 0.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .dock-panel {
             display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            justify-content: center;
-            flex-wrap: wrap;
+            gap: 0.5rem;
         }
 
-        .nav-menu li {
-            position: relative;
-        }
-
-        .nav-menu a {
-            display: block;
-            padding: var(--space-16) var(--space-24);
-            color: white;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: background-color var(--duration-normal);
+        .dock-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.75rem 1rem;
             cursor: pointer;
+            border-radius: 15px;
+            transition: var(--transition);
         }
 
-        .nav-menu a:hover,
-        .nav-menu a.active {
-            background-color: var(--apollo-blue);
+        .dock-item:hover {
+            background: var(--color-bg-mint);
+            transform: translateY(-5px);
         }
 
-        /* Category Navigation */
+        .dock-item.active {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+        }
+
+        .dock-item.active .dock-icon {
+            color: white;
+        }
+
+        .dock-item.active .dock-label {
+            color: white;
+        }
+
+        .dock-icon {
+            font-size: 1.5rem;
+            color: var(--color-text);
+            margin-bottom: 0.25rem;
+        }
+
+        .dock-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--color-text);
+            white-space: nowrap;
+        }
+
         .category-nav {
-            background-color: var(--color-white);
-            padding: var(--space-12) 0;
-            box-shadow: var(--shadow-sm);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            background: white;
+            padding: 1rem 0;
+            margin-bottom: 2rem;
         }
 
         .category-pills {
             display: flex;
-            gap: var(--space-12);
-            overflow-x: auto;
-            padding: var(--space-8) 0;
-            scrollbar-width: none;
-        }
-
-        .category-pills::-webkit-scrollbar {
-            display: none;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
 
         .category-pill {
-            padding: var(--space-8) var(--space-16);
-            background-color: var(--apollo-bg);
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-full);
-            white-space: nowrap;
+            padding: 0.5rem 1.5rem;
+            border: 2px solid transparent;
+            background: #f5f5f5;
+            border-radius: 25px;
+            font-weight: 600;
             cursor: pointer;
-            transition: all var(--duration-normal);
-            font-size: 0.9rem;
-            font-weight: 500;
+            transition: var(--transition);
         }
 
-        .category-pill:hover,
-        .category-pill.active {
-            background-color: var(--color-primary);
-            color: white;
+        .category-pill:hover {
+            background: var(--color-bg-mint);
             border-color: var(--color-primary);
         }
 
-        /* Page Content Sections */
-        .page-section {
-            display: none;
-            min-height: 500px;
-            padding: var(--space-24) 0;
-        }
-
-        .page-section.active {
-            display: block;
-            animation: fadeIn 0.3s ease-in;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Hero Section */
-        .hero-section {
-            background: linear-gradient(135deg, #1a4d3e 0%, #2d7a5f 100%);
-            padding: var(--space-24) 0;
+        .category-pill.active {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
             color: white;
+        }
+
+        .hero-section {
             position: relative;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #138808, #0090d9);
             overflow: hidden;
+            margin-bottom: 3rem;
+        }
+
+        .beams-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
         }
 
         .hero-content {
             position: relative;
-            z-index: 1;
+            z-index: 10;
             text-align: center;
+            color: white;
+            padding: 2rem;
         }
 
         .hero-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: var(--space-16);
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
         }
 
         .search-box {
-            max-width: 800px;
+            max-width: 600px;
             margin: 0 auto;
-            position: relative;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: var(--space-16) var(--space-24);
-            padding-left: 50px;
-            border: none;
-            border-radius: var(--radius-full);
-            font-size: 1rem;
-            box-shadow: var(--shadow-lg);
+            background: white;
+            border-radius: 50px;
+            padding: 0.5rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
         }
 
         .search-icon {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.3rem;
-            color: var(--color-text-secondary);
+            font-size: 1.25rem;
+            color: var(--color-primary);
         }
 
-        .hero-illustrations {
-            display: flex;
-            justify-content: space-around;
-            margin-top: var(--space-24);
+        .search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            padding: 0.5rem;
         }
 
-        .hero-character {
-            text-align: center;
-            opacity: 0.9;
+        .quick-actions {
+            margin: 3rem 0;
         }
 
-        .hero-character i {
-            font-size: 3rem;
-            margin-bottom: var(--space-8);
-        }
-
-        /* Action Cards */
         .action-card {
-            background-color: var(--color-white);
-            border-radius: var(--radius-lg);
-            padding: var(--space-24);
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
             display: flex;
             align-items: center;
-            gap: var(--space-16);
-            text-decoration: none;
-            color: var(--color-text);
-            box-shadow: var(--shadow-sm);
-            transition: all var(--duration-normal);
-            border: 1px solid transparent;
-            height: 100%;
+            gap: 1rem;
             cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
         .action-card:hover {
-            box-shadow: var(--shadow-md);
-            border-color: var(--color-primary);
-            transform: translateY(-2px);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
         }
 
+        .bg-mint { background: var(--color-bg-mint) !important; }
+        .bg-peach { background: var(--color-bg-peach) !important; }
+        .bg-lavender { background: var(--color-bg-lavender) !important; }
+        .bg-blue { background: var(--color-bg-blue) !important; }
+
         .action-icon {
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: var(--color-primary);
-            flex-shrink: 0;
         }
 
         .action-content {
@@ -336,2558 +323,840 @@
         }
 
         .action-title {
+            font-weight: 700;
             font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 4px;
-            color: var(--color-text);
+            margin-bottom: 0.25rem;
         }
 
         .action-subtitle {
-            font-size: 0.85rem;
-            color: var(--color-text-secondary);
-            text-transform: uppercase;
-            font-weight: 500;
+            font-size: 0.8rem;
+            color: #777;
+            font-weight: 600;
         }
 
         .action-arrow {
             font-size: 1.5rem;
-            color: var(--color-text-secondary);
+            color: var(--color-primary);
         }
 
-        .action-card.bg-mint { background: linear-gradient(135deg, rgba(200, 255, 220, 0.3), rgba(200, 255, 220, 0.1)); }
-        .action-card.bg-peach { background: linear-gradient(135deg, rgba(255, 220, 200, 0.3), rgba(255, 220, 200, 0.1)); }
-        .action-card.bg-lavender { background: linear-gradient(135deg, rgba(220, 200, 255, 0.3), rgba(220, 200, 255, 0.1)); }
-        .action-card.bg-yellow { background: linear-gradient(135deg, rgba(255, 245, 200, 0.3), rgba(255, 245, 200, 0.1)); }
-        .action-card.bg-blue { background: linear-gradient(135deg, rgba(200, 220, 255, 0.3), rgba(200, 220, 255, 0.1)); }
+        .health-conditions {
+            margin: 4rem 0;
+        }
 
-        /* Condition Cards */
         .section-title {
-            font-size: 1.8rem;
+            text-align: center;
+            font-size: 2rem;
             font-weight: 700;
-            margin-bottom: var(--space-24);
-            color: var(--color-text);
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .condition-card {
-            background-color: var(--color-white);
-            border-radius: var(--radius-lg);
-            padding: var(--space-24);
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
             text-align: center;
-            text-decoration: none;
-            color: var(--color-text);
-            box-shadow: var(--shadow-sm);
-            transition: all var(--duration-normal);
-            border: 1px solid #e5e7eb;
-            height: 100%;
             cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
         .condition-card:hover {
-            box-shadow: var(--shadow-md);
-            transform: translateY(-4px);
-            border-color: var(--color-primary);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            background: var(--color-bg-mint);
         }
 
         .condition-icon {
             font-size: 3rem;
-            margin-bottom: var(--space-12);
-            color: var(--apollo-orange);
+            color: var(--color-primary);
+            margin-bottom: 1rem;
         }
 
         .condition-name {
-            font-size: 1rem;
             font-weight: 600;
             color: var(--color-text);
         }
 
-        /* Doctor Cards */
-        .doctor-card {
-            background-color: var(--color-white);
-            border-radius: var(--radius-lg);
-            padding: var(--space-24);
-            box-shadow: var(--shadow-sm);
-            transition: all var(--duration-normal);
-            border: 1px solid #e5e7eb;
-        }
-
-        .doctor-card:hover {
-            box-shadow: var(--shadow-md);
-            transform: translateY(-2px);
-        }
-
-        .doctor-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--apollo-green), var(--apollo-blue));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 2rem;
-            margin-bottom: var(--space-16);
-        }
-
-        .doctor-name {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .doctor-specialty {
-            color: var(--color-text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: var(--space-8);
-        }
-
-        .doctor-rating {
-            color: var(--apollo-orange);
-            margin-bottom: var(--space-12);
-        }
-
-        .btn-book {
-            background-color: var(--apollo-green);
-            color: white;
-            border: none;
-            padding: var(--space-8) var(--space-24);
-            border-radius: var(--radius-base);
-            font-weight: 500;
-            cursor: pointer;
-            transition: all var(--duration-normal);
-            width: 100%;
-        }
-
-        .btn-book:hover {
-            background-color: var(--apollo-green-dark);
-        }
-
-        /* Lab Test Cards */
-        .test-card {
-            background-color: var(--color-white);
-            border-radius: var(--radius-lg);
-            padding: var(--space-24);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid #e5e7eb;
-            transition: all var(--duration-normal);
-        }
-
-        .test-card:hover {
-            box-shadow: var(--shadow-md);
-            border-color: var(--apollo-blue);
-        }
-
-        .test-name {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: var(--space-8);
-        }
-
-        .test-details {
-            color: var(--color-text-secondary);
-            font-size: 0.85rem;
-            margin-bottom: var(--space-12);
-        }
-
-        .test-price {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--apollo-green);
-            margin-bottom: var(--space-12);
-        }
-
-        .test-price-old {
-            text-decoration: line-through;
-            color: var(--color-text-secondary);
-            font-size: 0.9rem;
-            margin-left: var(--space-8);
-        }
-
-        /* Health Records */
-        .record-card {
-            background-color: var(--color-white);
-            border-radius: var(--radius-lg);
-            padding: var(--space-24);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid #e5e7eb;
-            margin-bottom: var(--space-16);
-        }
-
-        .record-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: var(--space-12);
-        }
-
-        .record-type {
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        .record-date {
-            color: var(--color-text-secondary);
-            font-size: 0.85rem;
-        }
-
-        .record-details {
-            color: var(--color-text-secondary);
-            margin-bottom: var(--space-12);
-        }
-
-        .btn-view {
-            background-color: var(--apollo-blue);
-            color: white;
-            border: none;
-            padding: var(--space-8) var(--space-16);
-            border-radius: var(--radius-base);
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all var(--duration-normal);
-        }
-
-        .btn-view:hover {
-            background-color: #0077b8;
-        }
-
-        /* AI Doctor Chatbot Widget - Enhanced */
-        .chatbot-container {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 10000;
-        }
-
-        .chatbot-toggle {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            border: 4px solid white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .chatbot-toggle::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-            transform: rotate(45deg);
-            animation: shine 3s infinite;
-        }
-
-        @keyframes shine {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-        }
-
-        .chatbot-toggle:hover {
-            transform: scale(1.15) rotate(5deg);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
-        }
-
-        .chatbot-toggle i {
-            font-size: 2.2rem;
-            color: white;
-            position: relative;
-            z-index: 1;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-        }
-
-        .chatbot-pulse {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            opacity: 0.6;
-            animation: pulse 2s infinite;
-            z-index: 0;
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                opacity: 0.6;
-            }
-            50% {
-                transform: scale(1.2);
-                opacity: 0.2;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 0.6;
-            }
-        }
-
-        .chatbot-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: linear-gradient(135deg, #f093fb, #f5576c);
-            color: white;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            font-weight: 700;
-            border: 3px solid white;
-            animation: bounce 2s infinite;
-            box-shadow: 0 4px 12px rgba(245, 87, 108, 0.4);
-            z-index: 2;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-8px) scale(1.1); }
-        }
-
-        .chatbot-window {
-            position: absolute;
-            bottom: 90px;
-            right: 0;
-            width: 420px;
-            height: 650px;
-            background: white;
-            border-radius: 24px;
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.25), 0 10px 30px rgba(102, 126, 234, 0.15);
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-            animation: slideUp 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-        }
-
-        .chatbot-window.active {
-            display: flex;
-        }
-
-        .chatbot-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 24px 20px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .chatbot-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,165.3C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') bottom center/cover no-repeat;
-            opacity: 0.5;
-        }
-
-        .chatbot-avatar {
-            width: 56px;
-            height: 56px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.7rem;
-            color: #667eea;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            position: relative;
-            z-index: 1;
-            animation: avatarFloat 3s ease-in-out infinite;
-        }
-
-        @keyframes avatarFloat {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-5px); }
-        }
-
-        .chatbot-info {
-            flex: 1;
-            position: relative;
-            z-index: 1;
-        }
-
-        .chatbot-name {
-            font-weight: 700;
-            font-size: 1.2rem;
-            margin-bottom: 4px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .chatbot-status {
-            font-size: 0.85rem;
-            opacity: 0.95;
-            display: flex;
-            align-items: center;
-            gap: 7px;
-        }
-
-        .status-dot {
-            width: 9px;
-            height: 9px;
-            background: #4ade80;
-            border-radius: 50%;
-            animation: blink 1.5s infinite;
-            box-shadow: 0 0 10px rgba(74, 222, 128, 0.8);
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(0.9); }
-        }
-
-        .chatbot-close {
-            background: rgba(255, 255, 255, 0.25);
-            border: none;
-            color: white;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all var(--duration-normal);
-            position: relative;
-            z-index: 1;
-        }
-
-        .chatbot-close:hover {
-            background: rgba(255, 255, 255, 0.35);
-            transform: rotate(90deg);
-        }
-
-        .chatbot-messages {
-            flex: 1;
-            padding: 24px;
-            overflow-y: auto;
-            background: linear-gradient(to bottom, #f8f9fc, #ffffff);
-            position: relative;
-        }
-
-        .chatbot-messages::before {
-            content: '';
-            position: sticky;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 20px;
-            background: linear-gradient(to bottom, #f8f9fc, transparent);
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .chatbot-messages::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .chatbot-messages::-webkit-scrollbar-track {
-            background: #f1f3f5;
-            border-radius: 10px;
-        }
-
-        .chatbot-messages::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 10px;
-            border: 2px solid #f1f3f5;
-        }
-
-        .chatbot-messages::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #764ba2, #667eea);
-        }
-
-        .chat-message {
-            margin-bottom: 20px;
-            display: flex;
-            gap: 12px;
-            animation: fadeInMessage 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-        @keyframes fadeInMessage {
-            from { 
-                opacity: 0; 
-                transform: translateY(15px) scale(0.95); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0) scale(1); 
-            }
-        }
-
-        .chat-message.bot {
-            flex-direction: row;
-        }
-
-        .chat-message.user {
-            flex-direction: row-reverse;
-        }
-
-        .message-avatar {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .message-avatar.bot {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-        }
-
-        .message-avatar.user {
-            background: linear-gradient(135deg, #f093fb, #f5576c);
-            color: white;
-        }
-
-        .message-content {
-            max-width: 72%;
-        }
-
-        .message-bubble {
-            padding: 14px 18px;
-            border-radius: 18px;
-            margin-bottom: 6px;
-            word-wrap: break-word;
-            line-height: 1.5;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
-
-        .chat-message.bot .message-bubble {
-            background: linear-gradient(135deg, #f8f9fc, #ffffff);
-            color: var(--color-text);
-            border-bottom-left-radius: 6px;
-            border: 1px solid rgba(102, 126, 234, 0.1);
-        }
-
-        .chat-message.user .message-bubble {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border-bottom-right-radius: 6px;
-        }
-
-        .message-time {
-            font-size: 0.7rem;
-            color: var(--color-text-secondary);
-            padding: 0 10px;
-            opacity: 0.7;
-        }
-
-        .typing-indicator {
-            display: flex;
-            gap: 5px;
-            padding: 14px 18px;
-            background: linear-gradient(135deg, #f8f9fc, #ffffff);
-            border-radius: 18px;
-            width: fit-content;
-            border: 1px solid rgba(102, 126, 234, 0.1);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
-
-        .typing-dot {
-            width: 9px;
-            height: 9px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 50%;
-            animation: typingDot 1.4s infinite;
-        }
-
-        .typing-dot:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .typing-dot:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        @keyframes typingDot {
-            0%, 60%, 100% { 
-                transform: translateY(0); 
-                opacity: 0.7; 
-            }
-            30% { 
-                transform: translateY(-12px); 
-                opacity: 1;
-                box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
-            }
-        }
-
-        .quick-replies {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .quick-reply-btn {
-            background: white;
-            border: 2px solid #667eea;
-            color: #667eea;
-            padding: 10px 18px;
-            border-radius: 24px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            box-shadow: 0 2px 6px rgba(102, 126, 234, 0.15);
-        }
-
-        .quick-reply-btn:hover {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.3);
-        }
-
-        .quick-reply-btn:active {
-            transform: translateY(0) scale(0.98);
-        }
-
-        .chatbot-input-area {
-            padding: 18px;
-            background: white;
-            border-top: 1px solid rgba(102, 126, 234, 0.1);
-            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
-        }
-
-        .chatbot-input-wrapper {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            background: #f8f9fc;
-            border-radius: 28px;
-            padding: 6px;
-            border: 2px solid transparent;
-            transition: all var(--duration-normal);
-        }
-
-        .chatbot-input-wrapper:focus-within {
-            border-color: #667eea;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-            background: white;
-        }
-
-        .chatbot-input {
-            flex: 1;
-            padding: 10px 16px;
-            border: none;
-            background: transparent;
-            font-size: 0.95rem;
-            outline: none;
-            color: var(--color-text);
-        }
-
-        .chatbot-input::placeholder {
-            color: var(--color-text-secondary);
-            opacity: 0.6;
-        }
-
-        .chatbot-send-btn {
-            width: 46px;
-            height: 46px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-        }
-
-        .chatbot-send-btn:hover:not(:disabled) {
-            background: linear-gradient(135deg, #764ba2, #667eea);
-            transform: scale(1.1) rotate(15deg);
-            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
-        }
-
-        .chatbot-send-btn:active:not(:disabled) {
-            transform: scale(1) rotate(0deg);
-        }
-
-        .chatbot-send-btn:disabled {
-            background: linear-gradient(135deg, #cbd5e1, #94a3b8);
-            cursor: not-allowed;
-            opacity: 0.5;
-            box-shadow: none;
-        }
-
-        @media (max-width: 768px) {
-            .chatbot-container {
-                bottom: 20px;
-                right: 20px;
-            }
-
-            .chatbot-toggle {
-                width: 60px;
-                height: 60px;
-            }
-
-            .chatbot-toggle i {
-                font-size: 1.8rem;
-            }
-
-            .chatbot-window {
-                width: calc(100vw - 30px);
-                height: calc(100vh - 120px);
-                max-height: 650px;
-                bottom: 80px;
-                right: -10px;
-            }
-
-            .message-content {
-                max-width: 78%;
-            }
-        }
-
-        /* Auth Modal Styles */
-        .auth-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            z-index: 10000;
-            backdrop-filter: blur(5px);
-            animation: fadeIn 0.3s ease;
-        }
-
-        .auth-modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .auth-modal-content {
-            background: var(--color-white);
-            border-radius: var(--radius-lg);
-            max-width: 450px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            position: relative;
-            animation: slideUp 0.3s ease;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .auth-close {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            background: transparent;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--color-text-secondary);
-            cursor: pointer;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: all var(--duration-normal);
-        }
-
-        .auth-close:hover {
-            background: var(--color-secondary);
-            color: var(--color-text);
-        }
-
-        .auth-header {
-            text-align: center;
-            padding: 40px 40px 24px;
-            border-bottom: 1px solid var(--color-border);
-        }
-
-        .auth-logo {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 16px;
-        }
-
-        .auth-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--color-text);
-        }
-
-        .auth-subtitle {
-            color: var(--color-text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .auth-body {
-            padding: 32px 40px;
-        }
-
-        .auth-tabs {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 32px;
-            border-bottom: 2px solid var(--color-border);
-        }
-
-        .auth-tab {
-            flex: 1;
-            padding: 12px 0;
-            background: transparent;
-            border: none;
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--color-text-secondary);
-            cursor: pointer;
-            position: relative;
-            transition: color var(--duration-normal);
-        }
-
-        .auth-tab.active {
-            color: var(--apollo-green);
-        }
-
-        .auth-tab.active::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--apollo-green);
-            border-radius: 3px 3px 0 0;
-        }
-
-        .auth-form {
-            display: none;
-        }
-
-        .auth-form.active {
-            display: block;
-        }
-
-        .form-group-auth {
-            margin-bottom: 20px;
-        }
-
-        .form-label-auth {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            font-size: 0.9rem;
-            color: var(--color-text);
-        }
-
-        .form-input-auth {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-base);
-            font-size: 1rem;
-            transition: all var(--duration-normal);
-            font-family: var(--font-family-base);
-        }
-
-        .form-input-auth:focus {
-            outline: none;
-            border-color: var(--apollo-green);
-            box-shadow: 0 0 0 3px rgba(19, 136, 8, 0.1);
-        }
-
-        .form-input-auth::placeholder {
-            color: var(--color-text-secondary);
-            opacity: 0.6;
-        }
-
-        .password-toggle {
-            position: relative;
-        }
-
-        .password-toggle-btn {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: transparent;
-            border: none;
-            color: var(--color-text-secondary);
-            cursor: pointer;
-            font-size: 1.2rem;
-            padding: 4px;
-        }
-
-        .forgot-password {
-            text-align: right;
-            margin-top: -12px;
-            margin-bottom: 24px;
-        }
-
-        .forgot-password a {
-            color: var(--apollo-green);
-            font-size: 0.85rem;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .forgot-password a:hover {
-            text-decoration: underline;
-        }
-
-        .btn-auth {
-            width: 100%;
-            padding: 14px;
-            background: var(--apollo-green);
-            color: white;
-            border: none;
-            border-radius: var(--radius-base);
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all var(--duration-normal);
-            margin-bottom: 16px;
-        }
-
-        .btn-auth:hover {
-            background: var(--apollo-green-dark);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(19, 136, 8, 0.3);
-        }
-
-        .btn-auth:active {
-            transform: translateY(0);
-        }
-
-        .divider {
-            display: flex;
-            align-items: center;
-            margin: 24px 0;
-            color: var(--color-text-secondary);
-            font-size: 0.85rem;
-        }
-
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--color-border);
-        }
-
-        .divider span {
-            padding: 0 16px;
-        }
-
-        .social-login {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-
-        .btn-social {
-            flex: 1;
-            padding: 12px;
-            border: 1px solid var(--color-border);
-            background: white;
-            border-radius: var(--radius-base);
-            cursor: pointer;
-            transition: all var(--duration-normal);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 0.9rem;
-        }
-
-        .btn-social:hover {
-            border-color: var(--apollo-green);
-            background: rgba(19, 136, 8, 0.05);
-        }
-
-        .btn-social img {
-            width: 20px;
-            height: 20px;
-        }
-
-        .auth-footer {
-            text-align: center;
-            padding: 0 40px 32px;
-            color: var(--color-text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .auth-footer a {
-            color: var(--apollo-green);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .auth-footer a:hover {
-            text-decoration: underline;
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
-        .checkbox-group input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-        }
-
-        .checkbox-group label {
-            font-size: 0.85rem;
-            color: var(--color-text-secondary);
-            cursor: pointer;
-        }
-
-        .container-custom {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 var(--space-16);
-        }
-
-        /* Footer */
         .footer {
-            background-color: var(--color-slate-900);
-            color: var(--color-gray-200);
-            padding: var(--space-24) 0;
-            margin-top: 60px;
+            background: var(--color-text);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
         }
 
         .footer-text {
-            text-align: center;
+            margin: 0;
             opacity: 0.8;
         }
 
-        /* Motion Dock Styles */
-        .motion-dock-container {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 9999;
+        .page-section {
+            display: none;
         }
 
-        .dock-outer {
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            padding: 8px;
-            transition: height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        .page-section.active {
+            display: block;
         }
 
-        .dock-panel {
-            display: flex;
-            gap: 12px;
-            padding: 12px 16px;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15), 
-                        0 0 0 1px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
         }
 
-        @media (prefers-color-scheme: dark) {
-            .dock-panel {
-                background: rgba(38, 40, 40, 0.9);
-                border: 1px solid rgba(255, 255, 255, 0.1);
-            }
-        }
-
-        .dock-item {
-            position: relative;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--apollo-green), var(--apollo-blue));
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            color: white;
-        }
-
-        .dock-item:hover {
-            transform: translateY(-10px) scale(1.4);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .dock-item:active {
-            transform: translateY(-8px) scale(1.35);
-        }
-
-        .dock-item[data-page="home"] {
-            background: linear-gradient(135deg, #138808, #1aa850);
-        }
-
-        .dock-item[data-page="doctors"] {
-            background: linear-gradient(135deg, #0090d9, #0077b8);
-        }
-
-        .dock-item[data-page="lab-tests"] {
-            background: linear-gradient(135deg, #a855f7, #8b5cf6);
-        }
-
-        .dock-item[data-page="ninja-x"] {
-            background: linear-gradient(135deg, #ff6f3d, #ff9068);
-        }
-
-        .dock-item[data-page="health-records"] {
-            background: linear-gradient(135deg, #f59e0b, #fbbf24);
-        }
-
-        .dock-icon {
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .dock-label {
-            position: absolute;
-            bottom: calc(100% + 10px);
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.85);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.2s;
-        }
-
-        .dock-item:hover .dock-label {
-            opacity: 1;
-        }
-
-        .dock-label::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            border: 5px solid transparent;
-            border-top-color: rgba(0, 0, 0, 0.85);
-        }
-
-        /* Responsive */
         @media (max-width: 768px) {
             .hero-title {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
 
-            .nav-menu {
-                flex-direction: column;
-            }
-
-            .nav-menu a {
-                padding: var(--space-12) var(--space-16);
-            }
-
-            .hero-illustrations {
+            .dock-label {
                 display: none;
             }
 
-            .header-icons {
-                gap: var(--space-12);
-            }
-
-            .action-card {
-                padding: var(--space-16);
-            }
-
-            .motion-dock-container {
-                bottom: 10px;
-            }
-
-            .dock-panel {
-                gap: 8px;
-                padding: 10px 12px;
-            }
-
             .dock-item {
-                width: 44px;
-                height: 44px;
-            }
-
-            .dock-icon {
-                font-size: 20px;
+                padding: 0.5rem;
             }
         }
+        
+        /* 
+        Updated the dock navigation to replace "Health Records" with "Turtle AI" chatbot. 
+        Created a fully functional AI chat interface with:
+        - Turtle AI SDK Integration: Complete FastAPI connection class with WebSocket support
+        - Interactive Chat UI: Modern chat interface with message bubbles and animations
+        - Quick Reply Buttons: Context-aware suggestions for healthcare queries
+        - Real-time Messaging: Message streaming support with loading states
+        - Healthcare Context: Specialized responses for doctor, medicine, and lab test queries
+        - Clear Chat: Session reset functionality
+        - Responsive Design: Floating chat window with gradient header
+        - Error Handling: Graceful offline mode with helpful fallback responses
+        */
     </style>
 </head>
 <body>
-    <!-- Top Header -->
-    <div class="top-header">
-        <div class="container-custom">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center gap-3">
-                    <svg class="logo" viewBox="0 0 150 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="20" cy="20" r="18" fill="#138808"/>
-                        <path d="M20 8L24 16H16L20 8Z" fill="white"/>
-                        <circle cx="20" cy="20" r="4" fill="white"/>
-                        <text x="45" y="26" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#138808">Ninja</text>
-                        <text x="45" y="35" font-family="Arial, sans-serif" font-size="8" fill="#666">XPERTS</text>
-                    </svg>
-                </div>
+    <div id="root"></div>
 
-                <div class="location-selector d-none d-md-flex">
-                    <i class="bi bi-geo-alt-fill" style="color: var(--apollo-orange); font-size: 1.5rem;"></i>
-                    <div>
-                        <div class="location-text">Delivery Address</div>
-                        <div class="location-value">Thane 421501 <i class="bi bi-chevron-down"></i></div>
-                    </div>
-                </div>
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
 
-                <div class="header-icons">
-                    <div class="header-icon d-none d-md-block">
-                        <i class="bi bi-gear"></i>
-                    </div>
-                    <div class="header-icon">
-                        <i class="bi bi-cart3"></i>
-                        <span class="cart-badge">0</span>
-                    </div>
-                    <button class="login-btn" id="openAuthModal">
-                        <i class="bi bi-person-circle"></i>
-                        <span class="d-none d-md-inline">Login</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Navigation -->
-    <nav class="main-nav">
-        <div class="container-custom">
-            <ul class="nav-menu">
-                <li><a class="nav-link active" data-page="home">Healthier</a></li>
-                <li><a class="nav-link" data-page="doctors">Find Doctors</a></li>
-                <li><a class="nav-link" data-page="lab-tests">Lab Tests</a></li>
-                <li><a class="nav-link" data-page="ninja-x">Ninja X</a></li>
-                <li><a class="nav-link" data-page="health-records">Health Records</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- Motion Dock Navigation -->
-    <div id="motion-dock" class="motion-dock-container">
-        <div class="dock-outer">
-            <div class="dock-panel">
-                <div class="dock-item" data-page="home">
-                    <div class="dock-icon">
-                        <i class="bi bi-house-fill"></i>
-                    </div>
-                    <div class="dock-label">Builder</div>
-                </div>
-                <div class="dock-item" data-page="doctors">
-                    <div class="dock-icon">
-                        <i class="bi bi-person-hearts"></i>
-                    </div>
-                    <div class="dock-label">Doctors</div>
-                </div>
-                <div class="dock-item" data-page="lab-tests">
-                    <div class="dock-icon">
-                        <i class="bi bi-clipboard2-pulse-fill"></i>
-                    </div>
-                    <div class="dock-label">Lab Tests</div>
-                </div>
-                <div class="dock-item" data-page="ninja-x">
-                    <div class="dock-icon">
-                        <i class="bi bi-lightning-charge-fill"></i>
-                    </div>
-                    <div class="dock-label">Ninja X</div>
-                </div>
-                <div class="dock-item" data-page="health-records">
-                    <div class="dock-icon">
-                        <i class="bi bi-folder-fill"></i>
-                    </div>
-                    <div class="dock-label">Health Records</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Category Navigation -->
-    <div class="category-nav">
-        <div class="container-custom">
-            <div class="category-pills">
-                <button class="category-pill active">YogaMate</button>
-                <button class="category-pill">GYMbar</button>
-                <button class="category-pill">Drinks &amp; Supplements</button>
-                <button class="category-pill">Personal Care</button>
-                <button class="category-pill">Ayurvedic</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- HOME PAGE -->
-    <div id="page-home" class="page-section active">
-        <section class="hero-section">
-            <div class="container-custom">
-                <div class="hero-content">
-                    <h1 class="hero-title">MEDS ESSENTIALS</h1>
-                    <div class="search-box">
-                        <i class="bi bi-search search-icon"></i>
-                        <input type="text" class="search-input" placeholder="Search Medicines">
-                    </div>
-                    <div class="hero-illustrations">
-                        <div class="hero-character"><i class="bi bi-person-fill"></i></div>
-                        <div class="hero-character"><i class="bi bi-chat-square-text-fill"></i></div>
-                        <div class="hero-character"><i class="bi bi-capsule"></i></div>
-                        <div class="hero-character"><i class="bi bi-person-badge"></i></div>
-                        <div class="hero-character"><i class="bi bi-person-fill"></i></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="quick-actions">
-            <div class="container-custom">
-                <div class="row g-3">
-                    <div class="col-md-6 col-lg-3">
-                        <div class="action-card bg-mint">
-                            <div class="action-icon"><i class="bi bi-shop"></i></div>
-                            <div class="action-content">
-                                <div class="action-title">Pharmacy Near Me</div>
-                                <div class="action-subtitle">FIND STORE</div>
-                            </div>
-                            <div class="action-arrow"><i class="bi bi-chevron-right"></i></div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="action-card bg-peach">
-                            <div class="action-icon"><i class="bi bi-clipboard-check"></i></div>
-                            <div class="action-content">
-                                <div class="action-title">Get 20% off on Medicines</div>
-                                <div class="action-subtitle">UPLOAD NOW</div>
-                            </div>
-                            <div class="action-arrow"><i class="bi bi-chevron-right"></i></div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="action-card bg-lavender">
-                            <div class="action-icon"><i class="bi bi-calendar2-check"></i></div>
-                            <div class="action-content">
-                                <div class="action-title">Doctor Appointment</div>
-                                <div class="action-subtitle">BOOK NOW</div>
-                            </div>
-                            <div class="action-arrow"><i class="bi bi-chevron-right"></i></div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="action-card bg-yellow">
-                            <div class="action-icon"><i class="bi bi-shield-fill-check"></i></div>
-                            <div class="action-content">
-                                <div class="action-title">Health Insurance</div>
-                                <div class="action-subtitle">EXPLORE PLANS</div>
-                            </div>
-                            <div class="action-arrow"><i class="bi bi-chevron-right"></i></div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="action-card bg-blue">
-                            <div class="action-icon"><i class="bi bi-droplet-fill"></i></div>
-                            <div class="action-content">
-                                <div class="action-title">Lab Tests</div>
-                                <div class="action-subtitle">AT HOME</div>
-                            </div>
-                            <div class="action-arrow"><i class="bi bi-chevron-right"></i></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="health-conditions" style="margin-top: 60px;">
-            <div class="container-custom">
-                <h2 class="section-title">Know by Health is Wealth</h2>
-                <div class="row g-4">
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="condition-card">
-                            <div class="condition-icon"><i class="bi bi-activity"></i></div>
-                            <div class="condition-name">Diabetes Care</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="condition-card">
-                            <div class="condition-icon"><i class="bi bi-heart-pulse"></i></div>
-                            <div class="condition-name">Cardiac Care</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="condition-card">
-                            <div class="condition-icon"><i class="bi bi-capsule"></i></div>
-                            <div class="condition-name">Stomach Care</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="condition-card">
-                            <div class="condition-icon"><i class="bi bi-bandaid"></i></div>
-                            <div class="condition-name">Pain Relief</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="condition-card">
-                            <div class="condition-icon"><i class="bi bi-lungs"></i></div>
-                            <div class="condition-name">Liver Care</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="condition-card">
-                            <div class="condition-icon"><i class="bi bi-thermometer-half"></i></div>
-                            <div class="condition-name">Fever Care</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="condition-card">
-                            <div class="condition-icon"><i class="bi bi-emoji-dizzy"></i></div>
-                            <div class="condition-name">Kidney Care</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="condition-card">
-                            <div class="condition-icon"><i class="bi bi-virus"></i></div>
-                            <div class="condition-name">Cold &amp; Cough</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="condition-card">
-                            <div class="condition-icon"><i class="bi bi-people-fill"></i></div>
-                            <div class="condition-name">Family Care</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="condition-card">
-                            <div class="condition-icon"><i class="bi bi-eye"></i></div>
-                            <div class="condition-name">Eye Care</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="condition-card">
-                            <div class="condition-icon"><i class="bi bi-person-hearts"></i></div>
-                            <div class="condition-name">Skin Care</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="condition-card">
-                            <div class="condition-icon"><i class="bi bi-brightness-high"></i></div>
-                            <div class="condition-name">Bone Care</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- DOCTORS PAGE -->
-    <div id="page-doctors" class="page-section">
-        <div class="container-custom">
-            <h2 class="section-title">Find Expert Doctors</h2>
-            <div class="row g-4 mb-4">
-                <div class="col-md-6">
-                    <input type="text" class="form-control" placeholder="Search by doctor name or specialty">
-                </div>
-                <div class="col-md-3">
-                    <select class="form-select">
-                        <option>All Specialties</option>
-                        <option>Cardiology</option>
-                        <option>Dermatology</option>
-                        <option>General Medicine</option>
-                        <option>Pediatrics</option>
-                        <option>Orthopedics</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <select class="form-select">
-                        <option>Available Today</option>
-                        <option>Available This Week</option>
-                        <option>All Doctors</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-4">
-                    <div class="doctor-card">
-                        <div class="doctor-avatar"><i class="bi bi-person-fill"></i></div>
-                        <div class="doctor-name">Dr. Rajesh Kumar</div>
-                        <div class="doctor-specialty">Cardiologist - 15 years exp.</div>
-                        <div class="doctor-rating">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-half"></i>
-                            <span style="color: var(--color-text-secondary); margin-left: 8px;">4.5 (234 reviews)</span>
-                        </div>
-                        <div style="color: var(--color-text-secondary); font-size: 0.85rem; margin-bottom: 12px;">
-                            <i class="bi bi-calendar-check"></i> Available: Mon, Wed, Fri
-                        </div>
-                        <button class="btn-book">Book Appointment</button>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="doctor-card">
-                        <div class="doctor-avatar"><i class="bi bi-person-fill"></i></div>
-                        <div class="doctor-name">Dr. Priya Sharma</div>
-                        <div class="doctor-specialty">Dermatologist - 12 years exp.</div>
-                        <div class="doctor-rating">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <span style="color: var(--color-text-secondary); margin-left: 8px;">5.0 (189 reviews)</span>
-                        </div>
-                        <div style="color: var(--color-text-secondary); font-size: 0.85rem; margin-bottom: 12px;">
-                            <i class="bi bi-calendar-check"></i> Available: Tue, Thu, Sat
-                        </div>
-                        <button class="btn-book">Book Appointment</button>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="doctor-card">
-                        <div class="doctor-avatar"><i class="bi bi-person-fill"></i></div>
-                        <div class="doctor-name">Dr. Amit Patel</div>
-                        <div class="doctor-specialty">General Physician - 20 years exp.</div>
-                        <div class="doctor-rating">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star"></i>
-                            <span style="color: var(--color-text-secondary); margin-left: 8px;">4.2 (456 reviews)</span>
-                        </div>
-                        <div style="color: var(--color-text-secondary); font-size: 0.85rem; margin-bottom: 12px;">
-                            <i class="bi bi-calendar-check"></i> Available: Mon-Sat
-                        </div>
-                        <button class="btn-book">Book Appointment</button>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="doctor-card">
-                        <div class="doctor-avatar"><i class="bi bi-person-fill"></i></div>
-                        <div class="doctor-name">Dr. Sunita Reddy</div>
-                        <div class="doctor-specialty">Pediatrician - 10 years exp.</div>
-                        <div class="doctor-rating">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-half"></i>
-                            <span style="color: var(--color-text-secondary); margin-left: 8px;">4.7 (312 reviews)</span>
-                        </div>
-                        <div style="color: var(--color-text-secondary); font-size: 0.85rem; margin-bottom: 12px;">
-                            <i class="bi bi-calendar-check"></i> Available: Mon, Wed, Fri
-                        </div>
-                        <button class="btn-book">Book Appointment</button>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="doctor-card">
-                        <div class="doctor-avatar"><i class="bi bi-person-fill"></i></div>
-                        <div class="doctor-name">Dr. Vikram Singh</div>
-                        <div class="doctor-specialty">Orthopedic Surgeon - 18 years exp.</div>
-                        <div class="doctor-rating">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star"></i>
-                            <span style="color: var(--color-text-secondary); margin-left: 8px;">4.3 (278 reviews)</span>
-                        </div>
-                        <div style="color: var(--color-text-secondary); font-size: 0.85rem; margin-bottom: 12px;">
-                            <i class="bi bi-calendar-check"></i> Available: Tue, Thu, Sat
-                        </div>
-                        <button class="btn-book">Book Appointment</button>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="doctor-card">
-                        <div class="doctor-avatar"><i class="bi bi-person-fill"></i></div>
-                        <div class="doctor-name">Dr. Neha Gupta</div>
-                        <div class="doctor-specialty">Gynecologist - 14 years exp.</div>
-                        <div class="doctor-rating">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <span style="color: var(--color-text-secondary); margin-left: 8px;">4.9 (421 reviews)</span>
-                        </div>
-                        <div style="color: var(--color-text-secondary); font-size: 0.85rem; margin-bottom: 12px;">
-                            <i class="bi bi-calendar-check"></i> Available: Mon-Fri
-                        </div>
-                        <button class="btn-book">Book Appointment</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- LAB TESTS PAGE -->
-    <div id="page-lab-tests" class="page-section">
-        <div class="container-custom">
-            <h2 class="section-title">Lab Tests at Home</h2>
-            <p style="color: var(--color-text-secondary); margin-bottom: 32px;">Book lab tests from the comfort of your home. Get accurate results quickly.</p>
-
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-4">
-                    <div class="test-card">
-                        <div class="test-name">Complete Blood Count (CBC)</div>
-                        <div class="test-details">
-                            <i class="bi bi-droplet"></i> Blood Test<br>
-                            <i class="bi bi-clock"></i> Results in 24 hours<br>
-                            <i class="bi bi-house-check"></i> Home collection available
-                        </div>
-                        <div class="test-price">
-                            ₹399 <span class="test-price-old">₹599</span>
-                        </div>
-                        <button class="btn-book">Book Test</button>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="test-card">
-                        <div class="test-name">Lipid Profile</div>
-                        <div class="test-details">
-                            <i class="bi bi-droplet"></i> Blood Test<br>
-                            <i class="bi bi-clock"></i> Results in 24 hours<br>
-                            <i class="bi bi-house-check"></i> Home collection available
-                        </div>
-                        <div class="test-price">
-                            ₹599 <span class="test-price-old">₹899</span>
-                        </div>
-                        <button class="btn-book">Book Test</button>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="test-card">
-                        <div class="test-name">Thyroid Function Test (TFT)</div>
-                        <div class="test-details">
-                            <i class="bi bi-droplet"></i> Blood Test<br>
-                            <i class="bi bi-clock"></i> Results in 48 hours<br>
-                            <i class="bi bi-house-check"></i> Home collection available
-                        </div>
-                        <div class="test-price">
-                            ₹499 <span class="test-price-old">₹799</span>
-                        </div>
-                        <button class="btn-book">Book Test</button>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="test-card">
-                        <div class="test-name">HbA1c (Diabetes)</div>
-                        <div class="test-details">
-                            <i class="bi bi-droplet"></i> Blood Test<br>
-                            <i class="bi bi-clock"></i> Results in 24 hours<br>
-                            <i class="bi bi-house-check"></i> Home collection available
-                        </div>
-                        <div class="test-price">
-                            ₹449 <span class="test-price-old">₹699</span>
-                        </div>
-                        <button class="btn-book">Book Test</button>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="test-card">
-                        <div class="test-name">Liver Function Test (LFT)</div>
-                        <div class="test-details">
-                            <i class="bi bi-droplet"></i> Blood Test<br>
-                            <i class="bi bi-clock"></i> Results in 24 hours<br>
-                            <i class="bi bi-house-check"></i> Home collection available
-                        </div>
-                        <div class="test-price">
-                            ₹549 <span class="test-price-old">₹849</span>
-                        </div>
-                        <button class="btn-book">Book Test</button>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="test-card">
-                        <div class="test-name">Kidney Function Test (KFT)</div>
-                        <div class="test-details">
-                            <i class="bi bi-droplet"></i> Blood Test<br>
-                            <i class="bi bi-clock"></i> Results in 24 hours<br>
-                            <i class="bi bi-house-check"></i> Home collection available
-                        </div>
-                        <div class="test-price">
-                            ₹549 <span class="test-price-old">₹849</span>
-                        </div>
-                        <button class="btn-book">Book Test</button>
-                    </div>
-                </div>
-            </div>
-
-            <div style="margin-top: 48px; padding: 32px; background: linear-gradient(135deg, var(--apollo-green), var(--apollo-blue)); border-radius: var(--radius-lg); color: white; text-align: center;">
-                <h3 style="margin-bottom: 16px;">Full Body Checkup Package</h3>
-                <p style="margin-bottom: 24px; opacity: 0.9;">Includes 65+ tests - CBC, LFT, KFT, Lipid Profile, Thyroid, Vitamin D & more</p>
-                <div style="font-size: 2rem; font-weight: 700; margin-bottom: 24px;">₹1,999 <span style="font-size: 1rem; text-decoration: line-through; opacity: 0.7;">₹4,999</span></div>
-                <button style="background: white; color: var(--apollo-green); border: none; padding: 12px 32px; border-radius: var(--radius-base); font-weight: 600; cursor: pointer; font-size: 1rem;">Book Full Checkup</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- NINJA X PAGE -->
-    <div id="page-ninja-x" class="page-section">
-        <div class="container-custom">
-            <div style="text-align: center; margin-bottom: 48px;">
-                <h2 class="section-title">Ninja X Premium Membership</h2>
-                <p style="color: var(--color-text-secondary); font-size: 1.1rem;">Your Complete Healthcare Solution with Exclusive Benefits</p>
-            </div>
-
-            <div class="row g-4 mb-5">
-                <div class="col-lg-4">
-                    <div style="background: linear-gradient(135deg, #ff6f3d, #ff9068); padding: 48px 32px; border-radius: var(--radius-lg); color: white; text-align: center; height: 100%;">
-                        <h3 style="margin-bottom: 16px;">Basic</h3>
-                        <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 24px;">₹99<span style="font-size: 1rem; font-weight: 400;">/month</span></div>
-                        <ul style="list-style: none; padding: 0; text-align: left; margin-bottom: 32px;">
-                            <li style="margin-bottom: 12px;"><i class="bi bi-check-circle-fill"></i> 10% off on medicines</li>
-                            <li style="margin-bottom: 12px;"><i class="bi bi-check-circle-fill"></i> Free home delivery</li>
-                            <li style="margin-bottom: 12px;"><i class="bi bi-check-circle-fill"></i> 1 free doctor consultation</li>
-                            <li style="margin-bottom: 12px;"><i class="bi bi-check-circle-fill"></i> Health records storage</li>
-                        </ul>
-                        <button style="background: white; color: #ff6f3d; border: none; padding: 12px 32px; border-radius: var(--radius-base); font-weight: 600; cursor: pointer; width: 100%;">Subscribe Now</button>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div style="background: linear-gradient(135deg, var(--apollo-green), #1aa850); padding: 48px 32px; border-radius: var(--radius-lg); color: white; text-align: center; height: 100%; position: relative; border: 3px solid #ffd814;">
-                        <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: #ffd814; color: #333; padding: 6px 20px; border-radius: 20px; font-weight: 700; font-size: 0.85rem;">MOST POPULAR</div>
-                        <h3 style="margin-bottom: 16px;">Premium</h3>
-                        <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 24px;">₹199<span style="font-size: 1rem; font-weight: 400;">/month</span></div>
-                        <ul style="list-style: none; padding: 0; text-align: left; margin-bottom: 32px;">
-                            <li style="margin-bottom: 12px;"><i class="bi bi-check-circle-fill"></i> 20% off on medicines</li>
-                            <li style="margin-bottom: 12px;"><i class="bi bi-check-circle-fill"></i> Free home delivery</li>
-                            <li style="margin-bottom: 12px;"><i class="bi bi-check-circle-fill"></i> 3 free doctor consultations</li>
-                            <li style="margin-bottom: 12px;"><i class="bi bi-check-circle-fill"></i> 15% off on lab tests</li>
-                            <li style="margin-bottom: 12px;"><i class="bi bi-check-circle-fill"></i> Priority customer support</li>
-                            <li style="margin-bottom: 12px;"><i class="bi bi-check-circle-fill"></i> Health records & analytics</li>
-                        </ul>
-                        <button style="background: white; color: var(--apollo-green); border: none; padding: 12px 32px; border-radius: var(--radius-base); font-weight: 600; cursor: pointer; width: 100%;">Subscribe Now</button>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div style="background: linear-gradient(135deg, var(--apollo-blue), #0077b8); padding: 48px 32px; border-radius: var(--radius-lg); color: white; text-align: center; height: 100%;">
-                        <h3 style="margin-bottom: 16px;">Elite</h3>
-                        <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 24px;">₹399<span style="font-size: 1rem; font-weight: 400;">/month</span></div>
-                        <ul style="list-style: none; padding: 0; text-align: left; margin-bottom: 32px;">
-                            <li style="margin-bottom: 12px;"><i class="bi bi-check-circle-fill"></i> 30% off on medicines</li>
-                            <li style="margin-bottom: 12px;"><i class="bi bi-check-circle-fill"></i> Free express delivery</li>
-                            <li style="margin-bottom: 12px;"><i class="bi bi-check-circle-fill"></i> Unlimited doctor consultations</li>
-                            <li style="margin-bottom: 12px;"><i class="bi bi-check-circle-fill"></i> 25% off on lab tests</li>
-                            <li style="margin-bottom: 12px;"><i class="bi bi-check-circle-fill"></i> Dedicated health manager</li>
-                            <li style="margin-bottom: 12px;"><i class="bi bi-check-circle-fill"></i> Annual health checkup</li>
-                            <li style="margin-bottom: 12px;"><i class="bi bi-check-circle-fill"></i> Family coverage (4 members)</li>
-                        </ul>
-                        <button style="background: white; color: var(--apollo-blue); border: none; padding: 12px 32px; border-radius: var(--radius-base); font-weight: 600; cursor: pointer; width: 100%;">Subscribe Now</button>
-                    </div>
-                </div>
-            </div>
-
-            <div style="background: var(--color-white); padding: 32px; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);">
-                <h3 style="margin-bottom: 24px; text-align: center;">Why Choose Ninja X?</h3>
-                <div class="row g-4">
-                    <div class="col-md-3 text-center">
-                        <i class="bi bi-shield-check" style="font-size: 3rem; color: var(--apollo-green); margin-bottom: 12px;"></i>
-                        <h5>Comprehensive Coverage</h5>
-                        <p style="color: var(--color-text-secondary); font-size: 0.9rem;">Complete healthcare for you and your family</p>
-                    </div>
-                    <div class="col-md-3 text-center">
-                        <i class="bi bi-piggy-bank" style="font-size: 3rem; color: var(--apollo-blue); margin-bottom: 12px;"></i>
-                        <h5>Save Money</h5>
-                        <p style="color: var(--color-text-secondary); font-size: 0.9rem;">Up to 30% savings on medicines and tests</p>
-                    </div>
-                    <div class="col-md-3 text-center">
-                        <i class="bi bi-clock-history" style="font-size: 3rem; color: var(--apollo-orange); margin-bottom: 12px;"></i>
-                        <h5>24/7 Support</h5>
-                        <p style="color: var(--color-text-secondary); font-size: 0.9rem;">Round the clock customer assistance</p>
-                    </div>
-                    <div class="col-md-3 text-center">
-                        <i class="bi bi-lightning-charge" style="font-size: 3rem; color: #ffd814; margin-bottom: 12px;"></i>
-                        <h5>Instant Access</h5>
-                        <p style="color: var(--color-text-secondary); font-size: 0.9rem;">Immediate benefits upon subscription</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- HEALTH RECORDS PAGE -->
-    <div id="page-health-records" class="page-section">
-        <div class="container-custom">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2 class="section-title mb-0">My Health Records</h2>
-                <button style="background: var(--apollo-green); color: white; border: none; padding: 12px 24px; border-radius: var(--radius-base); font-weight: 500; cursor: pointer;">
-                    <i class="bi bi-cloud-upload"></i> Upload Record
-                </button>
-            </div>
-
-            <div class="row g-4 mb-4">
-                <div class="col-md-3">
-                    <div style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(59, 130, 246, 0.05)); padding: 24px; border-radius: var(--radius-lg); border: 1px solid rgba(59, 130, 246, 0.2);">
-                        <div style="font-size: 2rem; color: var(--apollo-blue); margin-bottom: 8px;"><i class="bi bi-file-earmark-text"></i></div>
-                        <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 4px;">24</div>
-                        <div style="color: var(--color-text-secondary); font-size: 0.9rem;">Total Records</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(34, 197, 94, 0.05)); padding: 24px; border-radius: var(--radius-lg); border: 1px solid rgba(34, 197, 94, 0.2);">
-                        <div style="font-size: 2rem; color: var(--apollo-green); margin-bottom: 8px;"><i class="bi bi-capsule"></i></div>
-                        <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 4px;">12</div>
-                        <div style="color: var(--color-text-secondary); font-size: 0.9rem;">Prescriptions</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(168, 85, 247, 0.05)); padding: 24px; border-radius: var(--radius-lg); border: 1px solid rgba(168, 85, 247, 0.2);">
-                        <div style="font-size: 2rem; color: #a855f7; margin-bottom: 8px;"><i class="bi bi-clipboard-pulse"></i></div>
-                        <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 4px;">8</div>
-                        <div style="color: var(--color-text-secondary); font-size: 0.9rem;">Lab Reports</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div style="background: linear-gradient(135deg, rgba(249, 115, 22, 0.15), rgba(249, 115, 22, 0.05)); padding: 24px; border-radius: var(--radius-lg); border: 1px solid rgba(249, 115, 22, 0.2);">
-                        <div style="font-size: 2rem; color: var(--apollo-orange); margin-bottom: 8px;"><i class="bi bi-journal-medical"></i></div>
-                        <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 4px;">4</div>
-                        <div style="color: var(--color-text-secondary); font-size: 0.9rem;">Visit Summaries</div>
-                    </div>
-                </div>
-            </div>
-
-            <div style="margin-bottom: 24px;">
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-outline-secondary active">All Records</button>
-                    <button type="button" class="btn btn-outline-secondary">Prescriptions</button>
-                    <button type="button" class="btn btn-outline-secondary">Lab Reports</button>
-                    <button type="button" class="btn btn-outline-secondary">Visit Summaries</button>
-                </div>
-            </div>
-
-            <div class="record-card">
-                <div class="record-header">
-                    <div>
-                        <div class="record-type"><i class="bi bi-clipboard-pulse"></i> Blood Test - Complete Blood Count</div>
-                        <div class="record-date">October 25, 2025</div>
-                    </div>
-                    <button class="btn-view"><i class="bi bi-eye"></i> View Report</button>
-                </div>
-                <div class="record-details">
-                    Lab: Apollo Diagnostics, Thane<br>
-                    Doctor: Dr. Rajesh Kumar (Cardiologist)
-                </div>
-            </div>
-
-            <div class="record-card">
-                <div class="record-header">
-                    <div>
-                        <div class="record-type"><i class="bi bi-capsule"></i> Prescription - Hypertension Medication</div>
-                        <div class="record-date">October 20, 2025</div>
-                    </div>
-                    <button class="btn-view"><i class="bi bi-eye"></i> View Details</button>
-                </div>
-                <div class="record-details">
-                    Doctor: Dr. Amit Patel (General Physician)<br>
-                    Medicines: Amlodipine 5mg, Metoprolol 25mg
-                </div>
-            </div>
-
-            <div class="record-card">
-                <div class="record-header">
-                    <div>
-                        <div class="record-type"><i class="bi bi-journal-medical"></i> Visit Summary - General Checkup</div>
-                        <div class="record-date">October 15, 2025</div>
-                    </div>
-                    <button class="btn-view"><i class="bi bi-eye"></i> View Summary</button>
-                </div>
-                <div class="record-details">
-                    Doctor: Dr. Priya Sharma (Dermatologist)<br>
-                    Diagnosis: Routine skin examination - No issues found
-                </div>
-            </div>
-
-            <div class="record-card">
-                <div class="record-header">
-                    <div>
-                        <div class="record-type"><i class="bi bi-clipboard-pulse"></i> Lab Report - Lipid Profile</div>
-                        <div class="record-date">October 10, 2025</div>
-                    </div>
-                    <button class="btn-view"><i class="bi bi-eye"></i> View Report</button>
-                </div>
-                <div class="record-details">
-                    Lab: Suburban Diagnostics, Mumbai<br>
-                    Status: Cholesterol levels within normal range
-                </div>
-            </div>
-
-            <div class="record-card">
-                <div class="record-header">
-                    <div>
-                        <div class="record-type"><i class="bi bi-capsule"></i> Prescription - Vitamin D Supplement</div>
-                        <div class="record-date">October 5, 2025</div>
-                    </div>
-                    <button class="btn-view"><i class="bi bi-eye"></i> View Details</button>
-                </div>
-                <div class="record-details">
-                    Doctor: Dr. Sunita Reddy (Pediatrician)<br>
-                    Medicines: Vitamin D3 60,000 IU weekly for 8 weeks
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Auth Modal -->
-    <div id="authModal" class="auth-modal">
-        <div class="auth-modal-content">
-            <button class="auth-close" id="closeAuthModal">
-                <i class="bi bi-x"></i>
-            </button>
-
-            <div class="auth-header">
-                <svg class="auth-logo" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="30" cy="30" r="28" fill="#138808"/>
-                    <path d="M30 12L36 24H24L30 12Z" fill="white"/>
-                    <circle cx="30" cy="30" r="6" fill="white"/>
-                </svg>
-                <h2 class="auth-title">Welcome Back</h2>
-                <p class="auth-subtitle">Sign in to access your health dashboard</p>
-            </div>
-
-            <div class="auth-body">
-                <div class="auth-tabs">
-                    <button class="auth-tab active" data-tab="login">Login</button>
-                    <button class="auth-tab" data-tab="signup">Sign Up</button>
-                </div>
-
-                <!-- Login Form -->
-                <form class="auth-form active" id="loginForm">
-                    <div class="form-group-auth">
-                        <label class="form-label-auth">Email or Phone</label>
-                        <input type="text" class="form-input-auth" placeholder="Enter your email or phone number" required>
-                    </div>
-
-                    <div class="form-group-auth">
-                        <label class="form-label-auth">Password</label>
-                        <div class="password-toggle">
-                            <input type="password" class="form-input-auth" id="loginPassword" placeholder="Enter your password" required>
-                            <button type="button" class="password-toggle-btn" onclick="togglePassword('loginPassword')">
-                                <i class="bi bi-eye"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="forgot-password">
-                        <a href="#" onclick="alert('Password reset link would be sent to your email'); return false;">Forgot Password?</a>
-                    </div>
-
-                    <button type="submit" class="btn-auth">Sign In</button>
-
-                    <div class="divider">
-                        <span>OR</span>
-                    </div>
-
-                    <div class="social-login">
-                        <button type="button" class="btn-social" onclick="alert('Google OAuth integration would happen here')">
-                            <svg width="20" height="20" viewBox="0 0 20 20"><path fill="#4285F4" d="M19.6 10.23c0-.82-.1-1.42-.25-2.05H10v3.72h5.5c-.15.96-.74 2.31-2.04 3.22v2.45h3.16c1.89-1.73 2.98-4.3 2.98-7.34z"/><path fill="#34A853" d="M13.46 15.13c-.83.59-1.96 1-3.46 1-2.64 0-4.88-1.74-5.68-4.15H1.07v2.52C2.72 17.75 6.09 20 10 20c2.7 0 4.96-.89 6.62-2.42l-3.16-2.45z"/><path fill="#FBBC05" d="M3.99 10c0-.69.12-1.35.32-1.97V5.51H1.07A9.973 9.973 0 000 10c0 1.61.39 3.14 1.07 4.49l3.24-2.52c-.2-.62-.32-1.28-.32-1.97z"/><path fill="#EA4335" d="M10 3.88c1.88 0 3.13.81 3.85 1.48l2.84-2.76C14.96.99 12.7 0 10 0 6.09 0 2.72 2.25 1.07 5.51l3.24 2.52C5.12 5.62 7.36 3.88 10 3.88z"/></svg>
-                            Google
-                        </button>
-                        <button type="button" class="btn-social" onclick="alert('Facebook OAuth integration would happen here')">
-                            <svg width="20" height="20" viewBox="0 0 20 20"><path fill="#1877F2" d="M20 10c0-5.523-4.477-10-10-10S0 4.477 0 10c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V10h2.54V7.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V10h2.773l-.443 2.89h-2.33v6.988C16.343 19.128 20 14.991 20 10z"/></svg>
-                            Facebook
-                        </button>
-                    </div>
-                </form>
-
-                <!-- Sign Up Form -->
-                <form class="auth-form" id="signupForm">
-                    <div class="form-group-auth">
-                        <label class="form-label-auth">Full Name</label>
-                        <input type="text" class="form-input-auth" placeholder="Enter your full name" required>
-                    </div>
-
-                    <div class="form-group-auth">
-                        <label class="form-label-auth">Email Address</label>
-                        <input type="email" class="form-input-auth" placeholder="Enter your email" required>
-                    </div>
-
-                    <div class="form-group-auth">
-                        <label class="form-label-auth">Phone Number</label>
-                        <input type="tel" class="form-input-auth" placeholder="Enter your phone number" required>
-                    </div>
-
-                    <div class="form-group-auth">
-                        <label class="form-label-auth">Password</label>
-                        <div class="password-toggle">
-                            <input type="password" class="form-input-auth" id="signupPassword" placeholder="Create a strong password" required>
-                            <button type="button" class="password-toggle-btn" onclick="togglePassword('signupPassword')">
-                                <i class="bi bi-eye"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="form-group-auth">
-                        <label class="form-label-auth">Confirm Password</label>
-                        <div class="password-toggle">
-                            <input type="password" class="form-input-auth" id="confirmPassword" placeholder="Re-enter your password" required>
-                            <button type="button" class="password-toggle-btn" onclick="togglePassword('confirmPassword')">
-                                <i class="bi bi-eye"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="agreeTerms" required>
-                        <label for="agreeTerms">I agree to the <a href="#" onclick="alert('Terms & Conditions would open here'); return false;" style="color: var(--apollo-green);">Terms & Conditions</a> and <a href="#" onclick="alert('Privacy Policy would open here'); return false;" style="color: var(--apollo-green);">Privacy Policy</a></label>
-                    </div>
-
-                    <button type="submit" class="btn-auth">Create Account</button>
-
-                    <div class="divider">
-                        <span>OR</span>
-                    </div>
-
-                    <div class="social-login">
-                        <button type="button" class="btn-social" onclick="alert('Google OAuth integration would happen here')">
-                            <svg width="20" height="20" viewBox="0 0 20 20"><path fill="#4285F4" d="M19.6 10.23c0-.82-.1-1.42-.25-2.05H10v3.72h5.5c-.15.96-.74 2.31-2.04 3.22v2.45h3.16c1.89-1.73 2.98-4.3 2.98-7.34z"/><path fill="#34A853" d="M13.46 15.13c-.83.59-1.96 1-3.46 1-2.64 0-4.88-1.74-5.68-4.15H1.07v2.52C2.72 17.75 6.09 20 10 20c2.7 0 4.96-.89 6.62-2.42l-3.16-2.45z"/><path fill="#FBBC05" d="M3.99 10c0-.69.12-1.35.32-1.97V5.51H1.07A9.973 9.973 0 000 10c0 1.61.39 3.14 1.07 4.49l3.24-2.52c-.2-.62-.32-1.28-.32-1.97z"/><path fill="#EA4335" d="M10 3.88c1.88 0 3.13.81 3.85 1.48l2.84-2.76C14.96.99 12.7 0 10 0 6.09 0 2.72 2.25 1.07 5.51l3.24 2.52C5.12 5.62 7.36 3.88 10 3.88z"/></svg>
-                            Google
-                        </button>
-                        <button type="button" class="btn-social" onclick="alert('Facebook OAuth integration would happen here')">
-                            <svg width="20" height="20" viewBox="0 0 20 20"><path fill="#1877F2" d="M20 10c0-5.523-4.477-10-10-10S0 4.477 0 10c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V10h2.54V7.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V10h2.773l-.443 2.89h-2.33v6.988C16.343 19.128 20 14.991 20 10z"/></svg>
-                            Facebook
-                        </button>
-                    </div>
-                </form>
-            </div>
-
-            <div class="auth-footer" id="authFooter">
-                <span id="footerText">Don't have an account? <a href="#" id="switchAuth">Sign up now</a></span>
-            </div>
-        </div>
-    </div>
-
-    <!-- AI Doctor Chatbot Widget -->
-    <div class="chatbot-container">
-        <div class="chatbot-toggle" id="chatbotToggle">
-            <div class="chatbot-pulse"></div>
-            <i class="bi bi-chat-heart-fill"></i>
-            <span class="chatbot-badge">AI</span>
-        </div>
-
-        <div class="chatbot-window" id="chatbotWindow">
-            <div class="chatbot-header">
-                <div class="chatbot-avatar">
-                    <i class="bi bi-robot"></i>
-                </div>
-                <div class="chatbot-info">
-                    <div class="chatbot-name">Dr. AI Assistant</div>
-                    <div class="chatbot-status">
-                        <span class="status-dot"></span>
-                        <span>Online - Ready to help</span>
-                    </div>
-                </div>
-                <button class="chatbot-close" id="chatbotClose">
-                    <i class="bi bi-x"></i>
-                </button>
-            </div>
-
-            <div class="chatbot-messages" id="chatbotMessages">
-                <div class="chat-message bot">
-                    <div class="message-avatar bot">
-                        <i class="bi bi-robot"></i>
-                    </div>
-                    <div class="message-content">
-                        <div class="message-bubble">
-                            Hello! 👋 I'm Dr. AI, your virtual health assistant. I can help you with:
-                        </div>
-                        <div class="quick-replies">
-                            <button class="quick-reply-btn" data-message="Find doctors">🩺 Find Doctors</button>
-                            <button class="quick-reply-btn" data-message="Book lab tests">🔬 Lab Tests</button>
-                            <button class="quick-reply-btn" data-message="Medicine information">💊 Medicines</button>
-                            <button class="quick-reply-btn" data-message="Health tips">💚 Health Tips</button>
-                        </div>
-                        <div class="message-time">Just now</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="chatbot-input-area">
-                <div class="chatbot-input-wrapper">
-                    <input 
-                        type="text" 
-                        class="chatbot-input" 
-                        id="chatbotInput" 
-                        placeholder="Type your message..."
-                        autocomplete="off"
-                    >
-                    <button class="chatbot-send-btn" id="chatbotSend">
-                        <i class="bi bi-send-fill"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container-custom">
-            <p class="footer-text">&copy; 2025 Ninja Xperts. All rights reserved. | Healthcare Platform for Digital Assistance</p>
-        </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Page navigation system
-        const navLinks = document.querySelectorAll('.nav-link');
-        const pageSections = document.querySelectorAll('.page-section');
-        const dockItems = document.querySelectorAll('.dock-item');
-
-        function navigateToPage(pageName) {
-            // Remove active class from all nav links
-            navLinks.forEach(l => l.classList.remove('active'));
-            
-            // Add active class to matching nav link
-            const matchingNavLink = document.querySelector(`.nav-link[data-page="${pageName}"]`);
-            if (matchingNavLink) {
-                matchingNavLink.classList.add('active');
+        // Turtle AI SDK Integration
+        class TurtleAI {
+            constructor(config = {}) {
+                this.baseURL = config.baseURL || 'http://localhost:8000';
+                this.apiKey = config.apiKey || null;
+                this.sessionId = this.generateSessionId();
+                this.wsConnection = null;
+                this.messageQueue = [];
+                this.isConnected = false;
             }
-            
-            // Hide all page sections
-            pageSections.forEach(section => section.classList.remove('active'));
-            
-            // Show selected page section
-            const pageId = 'page-' + pageName;
-            const targetPage = document.getElementById(pageId);
-            if (targetPage) {
-                targetPage.classList.add('active');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            generateSessionId() {
+                return `turtle_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
             }
-        }
 
-        // Navigation links click handler
-        navLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                navigateToPage(this.getAttribute('data-page'));
-            });
-        });
+            initWebSocket() {
+                const wsURL = this.baseURL.replace('http', 'ws') + '/ws/chat';
+                this.wsConnection = new WebSocket(wsURL);
 
-        // Motion dock items click handler
-        dockItems.forEach(item => {
-            item.addEventListener('click', function() {
-                const pageName = this.getAttribute('data-page');
-                navigateToPage(pageName);
-            });
-        });
+                this.wsConnection.onopen = () => {
+                    console.log('🐢 Turtle AI WebSocket connected');
+                    this.isConnected = true;
+                    this.flushMessageQueue();
+                };
 
-        // Category pill activation
-        document.querySelectorAll('.category-pill').forEach(pill => {
-            pill.addEventListener('click', function() {
-                document.querySelectorAll('.category-pill').forEach(p => p.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
+                this.wsConnection.onmessage = (event) => {
+                    const data = JSON.parse(event.data);
+                    this.handleStreamingResponse(data);
+                };
 
-        // Search functionality
-        const searchInput = document.querySelector('.search-input');
-        if (searchInput) {
-            searchInput.addEventListener('focus', function() {
-                this.style.transform = 'scale(1.02)';
-            });
+                this.wsConnection.onerror = (error) => {
+                    console.error('🐢 Turtle AI WebSocket error:', error);
+                    this.isConnected = false;
+                };
 
-            searchInput.addEventListener('blur', function() {
-                this.style.transform = 'scale(1)';
-            });
-        }
-
-        // Book appointment buttons
-        document.querySelectorAll('.btn-book').forEach(btn => {
-            btn.addEventListener('click', function() {
-                alert('Booking system would integrate with backend API. This would open a booking modal with date/time selection.');
-            });
-        });
-
-        // View report buttons
-        document.querySelectorAll('.btn-view').forEach(btn => {
-            btn.addEventListener('click', function() {
-                alert('This would open the full report/record details in a modal or new page.');
-            });
-        });
-
-        // Cart functionality
-        document.querySelector('.header-icon .bi-cart3').parentElement.addEventListener('click', function() {
-            alert('Cart functionality would be integrated with backend API');
-        });
-
-        // Auth Modal Management
-        const authModal = document.getElementById('authModal');
-        const openAuthModalBtn = document.getElementById('openAuthModal');
-        const closeAuthModalBtn = document.getElementById('closeAuthModal');
-        const authTabs = document.querySelectorAll('.auth-tab');
-        const authForms = document.querySelectorAll('.auth-form');
-        const switchAuthLink = document.getElementById('switchAuth');
-        const footerText = document.getElementById('footerText');
-
-        // Open auth modal
-        openAuthModalBtn.addEventListener('click', function() {
-            authModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-
-        // Close auth modal
-        closeAuthModalBtn.addEventListener('click', function() {
-            authModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        });
-
-        // Close modal on backdrop click
-        authModal.addEventListener('click', function(e) {
-            if (e.target === authModal) {
-                authModal.classList.remove('active');
-                document.body.style.overflow = 'auto';
+                this.wsConnection.onclose = () => {
+                    console.log('🐢 Turtle AI WebSocket disconnected');
+                    this.isConnected = false;
+                    setTimeout(() => this.initWebSocket(), 3000);
+                };
             }
-        });
 
-        // Tab switching
-        authTabs.forEach(tab => {
-            tab.addEventListener('click', function() {
-                const tabName = this.getAttribute('data-tab');
-                
-                // Update tabs
-                authTabs.forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
-                
-                // Update forms
-                authForms.forEach(form => {
-                    form.classList.remove('active');
-                    if (form.id === tabName + 'Form') {
-                        form.classList.add('active');
+            async sendMessage(message, userId = 'anonymous', options = {}) {
+                const requestBody = {
+                    message: message,
+                    user_id: userId,
+                    session_id: this.sessionId,
+                    context: options.context || {},
+                    stream: options.stream || false,
+                    model: options.model || 'turtle-healthcare-v1'
+                };
+
+                try {
+                    const response = await fetch(`${this.baseURL}/api/v1/chat`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            ...(this.apiKey && { 'Authorization': `Bearer ${this.apiKey}` })
+                        },
+                        body: JSON.stringify(requestBody)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`Turtle AI Error: ${response.statusText}`);
                     }
-                });
-                
-                // Update footer text
-                if (tabName === 'login') {
-                    footerText.innerHTML = 'Don\'t have an account? <a href="#" id="switchAuth">Sign up now</a>';
-                } else {
-                    footerText.innerHTML = 'Already have an account? <a href="#" id="switchAuth">Sign in</a>';
-                }
-                
-                // Re-attach event listener to new link
-                attachSwitchAuthListener();
-            });
-        });
 
-        // Switch auth link functionality
-        function attachSwitchAuthListener() {
-            const newSwitchAuthLink = document.getElementById('switchAuth');
-            newSwitchAuthLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                const currentTab = document.querySelector('.auth-tab.active').getAttribute('data-tab');
-                const targetTab = currentTab === 'login' ? 'signup' : 'login';
-                document.querySelector(`.auth-tab[data-tab="${targetTab}"]`).click();
-            });
-        }
-        attachSwitchAuthListener();
-
-        // Password toggle function
-        function togglePassword(inputId) {
-            const input = document.getElementById(inputId);
-            const icon = input.nextElementSibling.querySelector('i');
-            
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.classList.remove('bi-eye');
-                icon.classList.add('bi-eye-slash');
-            } else {
-                input.type = 'password';
-                icon.classList.remove('bi-eye-slash');
-                icon.classList.add('bi-eye');
-            }
-        }
-
-        // Login form submission
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // In production, this would make an API call to authenticate
-            const formData = new FormData(this);
-            
-            // Simulated success
-            alert('Login successful! In production, this would:\n1. Send credentials to backend API\n2. Receive JWT token\n3. Store token securely\n4. Update UI with user info\n5. Redirect to dashboard');
-            
-            // Close modal
-            authModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-            
-            // Update login button to show user
-            openAuthModalBtn.innerHTML = '<i class="bi bi-person-circle"></i><span class="d-none d-md-inline">Account</span>';
-        });
-
-        // Signup form submission
-        document.getElementById('signupForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Password validation
-            const password = document.getElementById('signupPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            if (password !== confirmPassword) {
-                alert('Passwords do not match!');
-                return;
-            }
-            
-            if (password.length < 8) {
-                alert('Password must be at least 8 characters long!');
-                return;
-            }
-            
-            // In production, this would make an API call to register
-            alert('Account created successfully! In production, this would:\n1. Send user data to backend API\n2. Create new user account\n3. Send verification email\n4. Auto-login user\n5. Redirect to onboarding');
-            
-            // Switch to login tab
-            document.querySelector('.auth-tab[data-tab="login"]').click();
-        });
-
-        // AI Chatbot Functionality
-        const chatbotToggle = document.getElementById('chatbotToggle');
-        const chatbotWindow = document.getElementById('chatbotWindow');
-        const chatbotClose = document.getElementById('chatbotClose');
-        const chatbotMessages = document.getElementById('chatbotMessages');
-        const chatbotInput = document.getElementById('chatbotInput');
-        const chatbotSend = document.getElementById('chatbotSend');
-
-        const FASTAPI_URL = 'http://localhost:8000/api/chat'; // FastAPI backend URL
-
-        // Toggle chatbot window
-        chatbotToggle.addEventListener('click', function() {
-            chatbotWindow.classList.toggle('active');
-            if (chatbotWindow.classList.contains('active')) {
-                chatbotInput.focus();
-            }
-        });
-
-        chatbotClose.addEventListener('click', function() {
-            chatbotWindow.classList.remove('active');
-        });
-
-        // Quick reply buttons
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('quick-reply-btn')) {
-                const message = e.target.getAttribute('data-message');
-                sendMessage(message);
-            }
-        });
-
-        // Send message on button click
-        chatbotSend.addEventListener('click', function() {
-            const message = chatbotInput.value.trim();
-            if (message) {
-                sendMessage(message);
-            }
-        });
-
-        // Send message on Enter key
-        chatbotInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                const message = chatbotInput.value.trim();
-                if (message) {
-                    sendMessage(message);
+                    const data = await response.json();
+                    return this.formatResponse(data);
+                } catch (error) {
+                    console.error('🐢 Turtle AI request failed:', error);
+                    return this.getOfflineResponse(message);
                 }
             }
-        });
 
-        // Format time
-        function getCurrentTime() {
-            const now = new Date();
-            return now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            handleStreamingResponse(data) {
+                if (data.type === 'chunk') {
+                    window.dispatchEvent(new CustomEvent('turtleai-chunk', { 
+                        detail: { text: data.content, isComplete: false }
+                    }));
+                } else if (data.type === 'complete') {
+                    window.dispatchEvent(new CustomEvent('turtleai-chunk', { 
+                        detail: { text: '', isComplete: true, fullResponse: data.response }
+                    }));
+                }
+            }
+
+            flushMessageQueue() {
+                while (this.messageQueue.length > 0) {
+                    const { message, userId } = this.messageQueue.shift();
+                    this.sendMessage(message, userId);
+                }
+            }
+
+            formatResponse(data) {
+                return {
+                    success: data.success || true,
+                    response: data.response || data.message,
+                    quickReplies: data.quick_replies || data.suggestions || [],
+                    intent: data.intent || 'general',
+                    confidence: data.confidence || 1.0,
+                    metadata: data.metadata || {}
+                };
+            }
+
+            getOfflineResponse(message) {
+                const lowerMessage = message.toLowerCase();
+
+                const offlineResponses = {
+                    doctor: {
+                        response: '🩺 I can help you find doctors! Our specialists are available for consultations. Please note: I\'m currently offline, but I can still guide you.',
+                        quickReplies: ['View Doctors', 'Specialties', 'Book Appointment']
+                    },
+                    medicine: {
+                        response: '💊 I can assist with medicine information. While I\'m offline, you can browse our medicine catalog or upload a prescription.',
+                        quickReplies: ['Browse Medicines', 'Upload Prescription', 'Check Interactions']
+                    },
+                    test: {
+                        response: '🔬 Lab tests can be booked easily. I\'m currently offline, but you can still explore our test packages.',
+                        quickReplies: ['View Tests', 'Book Test', 'Home Collection']
+                    },
+                    default: {
+                        response: '👋 Hello! I\'m your healthcare assistant. I\'m currently in offline mode, but I can still help you navigate the platform.',
+                        quickReplies: ['Find Doctors', 'Book Tests', 'Order Medicines', 'Health Info']
+                    }
+                };
+
+                for (const [key, value] of Object.entries(offlineResponses)) {
+                    if (lowerMessage.includes(key)) {
+                        return { success: true, ...value };
+                    }
+                }
+
+                return { success: true, ...offlineResponses.default };
+            }
+
+            async clearHistory() {
+                this.sessionId = this.generateSessionId();
+                return { success: true };
+            }
         }
 
-        // Add user message to chat
-        function addUserMessage(message) {
-            const messageHtml = `
-                <div class="chat-message user">
-                    <div class="message-avatar user">
-                        <i class="bi bi-person-fill"></i>
-                    </div>
-                    <div class="message-content">
-                        <div class="message-bubble">${message}</div>
-                        <div class="message-time">${getCurrentTime()}</div>
-                    </div>
-                </div>
-            `;
-            chatbotMessages.insertAdjacentHTML('beforeend', messageHtml);
-            scrollToBottom();
-        }
+        // Turtle AI Chat Component
+        function TurtleAIChat({ active }) {
+            const [messages, setMessages] = useState([]);
+            const [inputValue, setInputValue] = useState('');
+            const [isLoading, setIsLoading] = useState(false);
+            const [turtleAI] = useState(() => new TurtleAI());
+            const messagesEndRef = useRef(null);
 
-        // Add bot message to chat
-        function addBotMessage(message, quickReplies = []) {
-            const quickRepliesHtml = quickReplies.length > 0 ? `
-                <div class="quick-replies">
-                    ${quickReplies.map(reply => `
-                        <button class="quick-reply-btn" data-message="${reply}">${reply}</button>
-                    `).join('')}
-                </div>
-            ` : '';
+            useEffect(() => {
+                if (active && messages.length === 0) {
+                    setMessages([{
+                        id: Date.now(),
+                        type: 'bot',
+                        text: '👋 Hello! I\'m Turtle AI, your healthcare assistant. How can I help you today?',
+                        quickReplies: ['Find Doctors', 'Book Lab Test', 'Order Medicine', 'Health Tips'],
+                        timestamp: new Date()
+                    }]);
+                }
+            }, [active]);
 
-            const messageHtml = `
-                <div class="chat-message bot">
-                    <div class="message-avatar bot">
-                        <i class="bi bi-robot"></i>
-                    </div>
-                    <div class="message-content">
-                        <div class="message-bubble">${message}</div>
-                        ${quickRepliesHtml}
-                        <div class="message-time">${getCurrentTime()}</div>
-                    </div>
-                </div>
-            `;
-            chatbotMessages.insertAdjacentHTML('beforeend', messageHtml);
-            scrollToBottom();
-        }
+            useEffect(() => {
+                messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+            }, [messages]);
 
-        // Show typing indicator
-        function showTypingIndicator() {
-            const typingHtml = `
-                <div class="chat-message bot typing-message">
-                    <div class="message-avatar bot">
-                        <i class="bi bi-robot"></i>
+            const handleSendMessage = async (text) => {
+                if (!text.trim()) return;
+
+                const userMessage = {
+                    id: Date.now(),
+                    type: 'user',
+                    text: text,
+                    timestamp: new Date()
+                };
+
+                setMessages(prev => [...prev, userMessage]);
+                setInputValue('');
+                setIsLoading(true);
+
+                try {
+                    const response = await turtleAI.sendMessage(text);
+                    
+                    const botMessage = {
+                        id: Date.now() + 1,
+                        type: 'bot',
+                        text: response.response,
+                        quickReplies: response.quickReplies,
+                        timestamp: new Date()
+                    };
+
+                    setMessages(prev => [...prev, botMessage]);
+                } catch (error) {
+                    console.error('Error:', error);
+                } finally {
+                    setIsLoading(false);
+                }
+            };
+
+            const handleQuickReply = (reply) => {
+                handleSendMessage(reply);
+            };
+
+            const handleClearChat = async () => {
+                await turtleAI.clearHistory();
+                setMessages([{
+                    id: Date.now(),
+                    type: 'bot',
+                    text: '👋 Chat cleared! How can I help you?',
+                    quickReplies: ['Find Doctors', 'Book Lab Test', 'Order Medicine', 'Health Tips'],
+                    timestamp: new Date()
+                }]);
+            };
+
+            if (!active) return null;
+
+            return (
+                <div style={{
+                    position: 'fixed',
+                    top: '140px',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: '90%',
+                    maxWidth: '800px',
+                    height: 'calc(100vh - 220px)',
+                    background: 'white',
+                    borderRadius: '20px',
+                    boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    overflow: 'hidden',
+                    zIndex: 100
+                }}>
+                    {/* Chat Header */}
+                    <div style={{
+                        background: 'linear-gradient(135deg, #138808, #0090d9)',
+                        color: 'white',
+                        padding: '1.5rem',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center'
+                    }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                            <div style={{
+                                width: '50px',
+                                height: '50px',
+                                background: 'rgba(255,255,255,0.2)',
+                                borderRadius: '50%',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontSize: '1.5rem'
+                            }}>
+                                🐢
+                            </div>
+                            <div>
+                                <div style={{ fontWeight: '700', fontSize: '1.2rem' }}>Turtle AI</div>
+                                <div style={{ fontSize: '0.85rem', opacity: 0.9 }}>Healthcare Assistant</div>
+                            </div>
+                        </div>
+                        <button
+                            onClick={handleClearChat}
+                            style={{
+                                background: 'rgba(255,255,255,0.2)',
+                                border: 'none',
+                                color: 'white',
+                                padding: '0.5rem 1rem',
+                                borderRadius: '10px',
+                                cursor: 'pointer',
+                                fontSize: '0.9rem',
+                                fontWeight: '600',
+                                transition: 'all 0.3s'
+                            }}
+                            onMouseOver={(e) => e.target.style.background = 'rgba(255,255,255,0.3)'}
+                            onMouseOut={(e) => e.target.style.background = 'rgba(255,255,255,0.2)'}
+                        >
+                            <i className="bi bi-trash"></i> Clear
+                        </button>
                     </div>
-                    <div class="message-content">
-                        <div class="typing-indicator">
-                            <div class="typing-dot"></div>
-                            <div class="typing-dot"></div>
-                            <div class="typing-dot"></div>
+
+                    {/* Messages Container */}
+                    <div style={{
+                        flex: 1,
+                        overflowY: 'auto',
+                        padding: '1.5rem',
+                        background: '#f8f9fa'
+                    }}>
+                        {messages.map((msg) => (
+                            <div key={msg.id} style={{
+                                marginBottom: '1rem',
+                                display: 'flex',
+                                justifyContent: msg.type === 'user' ? 'flex-end' : 'flex-start'
+                            }}>
+                                <div style={{
+                                    maxWidth: '70%',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: '0.5rem'
+                                }}>
+                                    <div style={{
+                                        padding: '1rem 1.25rem',
+                                        borderRadius: msg.type === 'user' ? '20px 20px 5px 20px' : '20px 20px 20px 5px',
+                                        background: msg.type === 'user' 
+                                            ? 'linear-gradient(135deg, #138808, #0090d9)'
+                                            : 'white',
+                                        color: msg.type === 'user' ? 'white' : '#1f2121',
+                                        boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                                        fontSize: '0.95rem',
+                                        lineHeight: '1.5'
+                                    }}>
+                                        {msg.text}
+                                    </div>
+                                    {msg.quickReplies && msg.quickReplies.length > 0 && (
+                                        <div style={{
+                                            display: 'flex',
+                                            flexWrap: 'wrap',
+                                            gap: '0.5rem'
+                                        }}>
+                                            {msg.quickReplies.map((reply, idx) => (
+                                                <button
+                                                    key={idx}
+                                                    onClick={() => handleQuickReply(reply)}
+                                                    style={{
+                                                        background: 'white',
+                                                        border: '2px solid #138808',
+                                                        color: '#138808',
+                                                        padding: '0.5rem 1rem',
+                                                        borderRadius: '20px',
+                                                        cursor: 'pointer',
+                                                        fontSize: '0.85rem',
+                                                        fontWeight: '600',
+                                                        transition: 'all 0.3s'
+                                                    }}
+                                                    onMouseOver={(e) => {
+                                                        e.target.style.background = '#138808';
+                                                        e.target.style.color = 'white';
+                                                    }}
+                                                    onMouseOut={(e) => {
+                                                        e.target.style.background = 'white';
+                                                        e.target.style.color = '#138808';
+                                                    }}
+                                                >
+                                                    {reply}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                        {isLoading && (
+                            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                                <div style={{
+                                    width: '40px',
+                                    height: '40px',
+                                    background: 'white',
+                                    borderRadius: '50%',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    fontSize: '1.2rem'
+                                }}>
+                                    🐢
+                                </div>
+                                <div style={{
+                                    background: 'white',
+                                    padding: '1rem',
+                                    borderRadius: '20px',
+                                    display: 'flex',
+                                    gap: '0.5rem'
+                                }}>
+                                    <div style={{
+                                        width: '8px',
+                                        height: '8px',
+                                        background: '#138808',
+                                        borderRadius: '50%',
+                                        animation: 'pulse 1.5s ease-in-out infinite'
+                                    }}></div>
+                                    <div style={{
+                                        width: '8px',
+                                        height: '8px',
+                                        background: '#138808',
+                                        borderRadius: '50%',
+                                        animation: 'pulse 1.5s ease-in-out 0.3s infinite'
+                                    }}></div>
+                                    <div style={{
+                                        width: '8px',
+                                        height: '8px',
+                                        background: '#138808',
+                                        borderRadius: '50%',
+                                        animation: 'pulse 1.5s ease-in-out 0.6s infinite'
+                                    }}></div>
+                                </div>
+                            </div>
+                        )}
+                        <div ref={messagesEndRef} />
+                    </div>
+
+                    {/* Input Area */}
+                    <div style={{
+                        padding: '1.5rem',
+                        background: 'white',
+                        borderTop: '1px solid #e0e0e0'
+                    }}>
+                        <div style={{
+                            display: 'flex',
+                            gap: '1rem',
+                            alignItems: 'center'
+                        }}>
+                            <input
+                                type="text"
+                                value={inputValue}
+                                onChange={(e) => setInputValue(e.target.value)}
+                                onKeyPress={(e) => e.key === 'Enter' && handleSendMessage(inputValue)}
+                                placeholder="Type your message..."
+                                style={{
+                                    flex: 1,
+                                    padding: '1rem 1.5rem',
+                                    border: '2px solid #e0e0e0',
+                                    borderRadius: '25px',
+                                    fontSize: '1rem',
+                                    outline: 'none',
+                                    transition: 'border-color 0.3s'
+                                }}
+                                onFocus={(e) => e.target.style.borderColor = '#138808'}
+                                onBlur={(e) => e.target.style.borderColor = '#e0e0e0'}
+                            />
+                            <button
+                                onClick={() => handleSendMessage(inputValue)}
+                                disabled={!inputValue.trim() || isLoading}
+                                style={{
+                                    background: inputValue.trim() && !isLoading
+                                        ? 'linear-gradient(135deg, #138808, #0090d9)'
+                                        : '#e0e0e0',
+                                    color: 'white',
+                                    border: 'none',
+                                    width: '50px',
+                                    height: '50px',
+                                    borderRadius: '50%',
+                                    cursor: inputValue.trim() && !isLoading ? 'pointer' : 'not-allowed',
+                                    fontSize: '1.2rem',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    transition: 'all 0.3s'
+                                }}
+                            >
+                                <i className="bi bi-send-fill"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
-            `;
-            chatbotMessages.insertAdjacentHTML('beforeend', typingHtml);
-            scrollToBottom();
+            );
         }
 
-        // Remove typing indicator
-        function removeTypingIndicator() {
-            const typingMessage = chatbotMessages.querySelector('.typing-message');
-            if (typingMessage) {
-                typingMessage.remove();
+        function App() {
+            const [activePage, setActivePage] = useState('home');
+            const [activeCategory, setActiveCategory] = useState('YogaMate');
+            const [cartCount, setCartCount] = useState(0);
+
+            const categories = ['YogaMate', 'GYMbar', 'Drinks & Supplements', 'Personal Care', 'Ayurvedic'];
+            
+            const healthConditions = [
+                { icon: 'activity', name: 'Diabetes Care' },
+                { icon: 'heart-pulse', name: 'Cardiac Care' },
+                { icon: 'capsule', name: 'Stomach Care' },
+                { icon: 'bandaid', name: 'Pain Relief' },
+                { icon: 'lungs', name: 'Liver Care' },
+                { icon: 'thermometer-half', name: 'Fever Care' }
+            ];
+
+            const quickActions = [
+                { icon: 'shop', title: 'Pharmacy Near Me', subtitle: 'FIND STORE', bg: 'bg-mint' },
+                { icon: 'clipboard-check', title: 'Get 20% off', subtitle: 'UPLOAD NOW', bg: 'bg-peach' },
+                { icon: 'calendar2-check', title: 'Doctor Appointment', subtitle: 'BOOK NOW', bg: 'bg-lavender' },
+                { icon: 'droplet-fill', title: 'Lab Tests', subtitle: 'AT HOME', bg: 'bg-blue' }
+            ];
+
+            const dockItems = [
+                { id: 'home', icon: 'house-fill', label: 'Healthier' },
+                { id: 'doctors', icon: 'person-hearts', label: 'Find Doctors' },
+                { id: 'lab-tests', icon: 'clipboard2-pulse-fill', label: 'Lab Tests' },
+                { id: 'ninja-x', icon: 'lightning-charge-fill', label: 'Ninja X' },
+                { id: 'turtle-ai', icon: 'chat-dots-fill', label: 'Turtle AI' }
+            ];
+
+            return (
+                <>
+                    {/* Top Header */}
+                    <div className="top-header">
+                        <div className="container-custom">
+                            <div className="d-flex justify-content-between align-items-center">
+                                <div className="d-flex align-items-center gap-3">
+                                    <img 
+                                        src="https://i.postimg.cc/JhCCv05w/Image.png" 
+                                        alt="MediSage Logo" 
+                                        className="logo-img"
+                                    />
+                                    <span className="logo-text">MediSage</span>
+                                </div>
+
+                                <div className="header-icons">
+                                    <div className="header-icon d-none d-md-block">
+                                        <i className="bi bi-gear"></i>
+                                    </div>
+                                    <div className="header-icon">
+                                        <i className="bi bi-cart3"></i>
+                                        <span className="cart-badge">{cartCount}</span>
+                                    </div>
+                                    <button className="login-btn">
+                                        <i className="bi bi-person-circle"></i>
+                                        <span className="d-none d-md-inline">Login</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Motion Dock Navigation */}
+                    <div className="motion-dock-container">
+                        <div className="dock-outer">
+                            <div className="dock-panel">
+                                {dockItems.map(item => (
+                                    <div 
+                                        key={item.id}
+                                        className={`dock-item ${activePage === item.id ? 'active' : ''}`}
+                                        onClick={() => setActivePage(item.id)}
+                                    >
+                                        <div className="dock-icon">
+                                            <i className={`bi bi-${item.icon}`}></i>
+                                        </div>
+                                        <div className="dock-label">{item.label}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Category Navigation */}
+                    <div className="category-nav">
+                        <div className="container-custom">
+                            <div className="category-pills">
+                                {categories.map(category => (
+                                    <button
+                                        key={category}
+                                        className={`category-pill ${activeCategory === category ? 'active' : ''}`}
+                                        onClick={() => setActiveCategory(category)}
+                                    >
+                                        {category}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* HOME PAGE */}
+                    <div className={`page-section ${activePage === 'home' ? 'active' : ''}`}>
+                        {/* Hero Section */}
+                        <section className="hero-section">
+                            <div className="beams-container">
+                                <canvas id="beamsCanvas"></canvas>
+                            </div>
+                            <div className="hero-overlay"></div>
+
+                            <div className="container-custom">
+                                <div className="hero-content">
+                                    <h1 className="hero-title">MEDS ESSENTIALS</h1>
+                                    <p className="hero-subtitle">Your Complete Digital Health Assistant</p>
+                                    <div className="search-box">
+                                        <i className="bi bi-search search-icon"></i>
+                                        <input 
+                                            type="text" 
+                                            className="search-input" 
+                                            placeholder="Search Medicines, Doctors, Lab Tests..."
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* Quick Actions */}
+                        <section className="quick-actions">
+                            <div className="container-custom">
+                                <div className="row g-4">
+                                    {quickActions.map((action, index) => (
+                                        <div key={index} className="col-md-6 col-lg-3">
+                                            <div className={`action-card ${action.bg}`}>
+                                                <div className="action-icon">
+                                                    <i className={`bi bi-${action.icon}`}></i>
+                                                </div>
+                                                <div className="action-content">
+                                                    <div className="action-title">{action.title}</div>
+                                                    <div className="action-subtitle">{action.subtitle}</div>
+                                                </div>
+                                                <div className="action-arrow">
+                                                    <i className="bi bi-chevron-right"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* Health Conditions */}
+                        <section className="health-conditions">
+                            <div className="container-custom">
+                                <h2 className="section-title">Health is Wealth</h2>
+                                <div className="row g-4">
+                                    {healthConditions.map((condition, index) => (
+                                        <div key={index} className="col-6 col-md-4 col-lg-2">
+                                            <div className="condition-card">
+                                                <div className="condition-icon">
+                                                    <i className={`bi bi-${condition.icon}`}></i>
+                                                </div>
+                                                <div className="condition-name">{condition.name}</div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    {/* Other Pages Placeholders */}
+                    <div className={`page-section ${activePage === 'doctors' ? 'active' : ''}`}>
+                        <div className="container-custom" style={{minHeight: '400px', paddingTop: '2rem'}}>
+                            <h2 className="section-title">Find Doctors</h2>
+                            <p style={{textAlign: 'center', color: '#777'}}>Doctor listing coming soon...</p>
+                        </div>
+                    </div>
+
+                    <div className={`page-section ${activePage === 'lab-tests' ? 'active' : ''}`}>
+                        <div className="container-custom" style={{minHeight: '400px', paddingTop: '2rem'}}>
+                            <h2 className="section-title">Lab Tests</h2>
+                            <p style={{textAlign: 'center', color: '#777'}}>Lab tests catalog coming soon...</p>
+                        </div>
+                    </div>
+
+                    <div className={`page-section ${activePage === 'ninja-x' ? 'active' : ''}`}>
+                        <div className="container-custom" style={{minHeight: '400px', paddingTop: '2rem'}}>
+                            <h2 className="section-title">Ninja X</h2>
+                            <p style={{textAlign: 'center', color: '#777'}}>Ninja X features coming soon...</p>
+                        </div>
+                    </div>
+
+                    <TurtleAIChat active={activePage === 'turtle-ai'} />
+
+                    {/* Footer */}
+                    <footer className="footer">
+                        <div className="container-custom">
+                            <p className="footer-text">
+                                &copy; 2025 MediSage. All rights reserved. | Healthcare Platform for Digital Assistance
+                            </p>
+                        </div>
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+
+        // Simple beam animation
+        const canvas = document.getElementById('beamsCanvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = 400;
+
+            const beams = [];
+            for (let i = 0; i < 5; i++) {
+                beams.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 2,
+                    vy: (Math.random() - 0.5) * 2
+                });
             }
-        }
 
-        // Scroll to bottom of messages
-        function scrollToBottom() {
-            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-        }
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+                ctx.lineWidth = 2;
 
-        // Send message to FastAPI backend
-        async function sendMessage(message) {
-            // Add user message
-            addUserMessage(message);
-            chatbotInput.value = '';
+                beams.forEach((beam, i) => {
+                    beam.x += beam.vx;
+                    beam.y += beam.vy;
 
-            // Show typing indicator
-            showTypingIndicator();
+                    if (beam.x < 0 || beam.x > canvas.width) beam.vx *= -1;
+                    if (beam.y < 0 || beam.y > canvas.height) beam.vy *= -1;
 
-            try {
-                // Call FastAPI backend
-                const response = await fetch(FASTAPI_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        message: message,
-                        user_id: 'user_123', // In production, use actual user ID from auth
-                        session_id: 'session_' + Date.now()
-                    })
+                    beams.forEach((other, j) => {
+                        if (i !== j) {
+                            const dx = other.x - beam.x;
+                            const dy = other.y - beam.y;
+                            const dist = Math.sqrt(dx * dx + dy * dy);
+                            
+                            if (dist < 200) {
+                                ctx.beginPath();
+                                ctx.moveTo(beam.x, beam.y);
+                                ctx.lineTo(other.x, other.y);
+                                ctx.stroke();
+                            }
+                        }
+                    });
                 });
 
-                const data = await response.json();
-
-                // Remove typing indicator
-                removeTypingIndicator();
-
-                // Add bot response
-                if (data.success) {
-                    addBotMessage(data.response, data.quick_replies || []);
-                } else {
-                    addBotMessage('Sorry, I encountered an error. Please try again.');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                removeTypingIndicator();
-                
-                // Fallback responses when backend is not available
-                const fallbackResponse = getFallbackResponse(message);
-                addBotMessage(fallbackResponse.message, fallbackResponse.quickReplies);
+                requestAnimationFrame(animate);
             }
+
+            animate();
+
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = 400;
+            });
         }
-
-        // Fallback responses (when backend is not available)
-        function getFallbackResponse(message) {
-            const lowerMessage = message.toLowerCase();
-
-            if (lowerMessage.includes('doctor') || lowerMessage.includes('appointment')) {
-                return {
-                    message: 'I can help you find the right doctor! We have specialists in various fields. Would you like to book an appointment?',
-                    quickReplies: ['View Cardiologists', 'View Dermatologists', 'View General Physicians']
-                };
-            } else if (lowerMessage.includes('lab') || lowerMessage.includes('test')) {
-                return {
-                    message: 'We offer a wide range of lab tests with home collection. What type of test are you looking for?',
-                    quickReplies: ['Blood Tests', 'Full Body Checkup', 'Diabetes Tests']
-                };
-            } else if (lowerMessage.includes('medicine') || lowerMessage.includes('drug')) {
-                return {
-                    message: 'I can help you find medicines and understand their usage. What medication information do you need?',
-                    quickReplies: ['Search Medicine', 'Upload Prescription', 'Medicine Reminders']
-                };
-            } else if (lowerMessage.includes('health tip') || lowerMessage.includes('advice')) {
-                return {
-                    message: '💚 Here are some quick health tips:\n\n1. Drink 8 glasses of water daily\n2. Get 7-8 hours of sleep\n3. Exercise for 30 minutes daily\n4. Eat balanced meals\n5. Regular health checkups',
-                    quickReplies: ['More Tips', 'Book Checkup', 'Nutrition Advice']
-                };
-            } else {
-                return {
-                    message: 'I\'m here to assist you with healthcare needs. How can I help you today?',
-                    quickReplies: ['Find Doctors', 'Book Lab Tests', 'Order Medicines', 'Health Records']
-                };
-            }
-        }
-
-        // Initialize chatbot
-        console.log('AI Doctor Chatbot initialized');
     </script>
 </body>
 </html>
