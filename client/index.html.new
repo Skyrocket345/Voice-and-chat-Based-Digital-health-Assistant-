@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ninja Xperts - Health is Wealth</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Your existing body content here -->
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container-custom">
+            <p class="footer-text">&copy; 2025 Ninja Xperts. All rights reserved. | Healthcare Platform for Digital Assistance</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Page navigation system
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pageSections = document.querySelectorAll('.page-section');
+            const dockItems = document.querySelectorAll('.dock-item');
+
+            function navigateToPage(pageName) {
+                // Remove active class from all nav links
+                navLinks.forEach(l => l.classList.remove('active'));
+                
+                // Add active class to matching nav link
+                const matchingNavLink = document.querySelector(`.nav-link[data-page="${pageName}"]`);
+                if (matchingNavLink) {
+                    matchingNavLink.classList.add('active');
+                }
+                
+                // Hide all page sections
+                pageSections.forEach(section => section.classList.remove('active'));
+                
+                // Show selected page section
+                const pageId = 'page-' + pageName;
+                const targetPage = document.getElementById(pageId);
+                if (targetPage) {
+                    targetPage.classList.add('active');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
+
+            // Event Listeners
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    navigateToPage(this.getAttribute('data-page'));
+                });
+            });
+
+            dockItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    navigateToPage(this.getAttribute('data-page'));
+                });
+            });
+
+            document.querySelectorAll('.category-pill').forEach(pill => {
+                pill.addEventListener('click', function() {
+                    document.querySelectorAll('.category-pill').forEach(p => p.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Auth Modal Management
+            const authModal = document.getElementById('authModal');
+            const openAuthModalBtn = document.getElementById('openAuthModal');
+            const closeAuthModalBtn = document.getElementById('closeAuthModal');
+
+            if (openAuthModalBtn) {
+                openAuthModalBtn.addEventListener('click', function() {
+                    authModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+
+            if (closeAuthModalBtn) {
+                closeAuthModalBtn.addEventListener('click', function() {
+                    authModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                });
+            }
+
+            // Other interactive elements
+            const searchInput = document.querySelector('.search-input');
+            if (searchInput) {
+                searchInput.addEventListener('focus', function() {
+                    this.style.transform = 'scale(1.02)';
+                });
+
+                searchInput.addEventListener('blur', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            }
+
+            document.querySelectorAll('.btn-book').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    alert('Booking system would integrate with backend API. This would open a booking modal with date/time selection.');
+                });
+            });
+
+            document.querySelectorAll('.btn-view').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    alert('This would open the full report/record details in a modal or new page.');
+                });
+            });
+        });
+
+        // Password toggle function
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            if (input) {
+                const icon = input.nextElementSibling.querySelector('i');
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.classList.replace('bi-eye', 'bi-eye-slash');
+                } else {
+                    input.type = 'password';
+                    icon.classList.replace('bi-eye-slash', 'bi-eye');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
