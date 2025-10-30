@@ -2468,248 +2468,15 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/yourusername/turtleai/dist/TurtleAI.js"></script>
     <script>
-        // Turtle AI Client Integration Class
-        class TurtleAI {
-            constructor(config = {}) {
-                this.baseURL = config.baseURL || 'http://localhost:8000';
-                this.apiKey = config.apiKey || null;
-                this.sessionId = this.generateSessionId();
-                this.wsConnection = null;
-                this.messageQueue = [];
-                this.isConnected = false;
-            }
-
-            generateSessionId() {
-                return `turtle_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-            }
-
-            initWebSocket() {
-                const wsURL = this.baseURL.replace('http', 'ws') + '/ws/chat';
-                
-                this.wsConnection = new WebSocket(wsURL);
-
-                this.wsConnection.onopen = () => {
-                    console.log('🐢 Turtle AI WebSocket connected');
-                    this.isConnected = true;
-                    this.flushMessageQueue();
-                };
-
-                this.wsConnection.onmessage = (event) => {
-                    const data = JSON.parse(event.data);
-                    this.handleStreamingResponse(data);
-                };
-
-                this.wsConnection.onerror = (error) => {
-                    console.error('🐢 Turtle AI WebSocket error:', error);
-                    this.isConnected = false;
-                };
-
-                this.wsConnection.onclose = () => {
-                    console.log('🐢 Turtle AI WebSocket disconnected');
-                    this.isConnected = false;
-                    setTimeout(() => this.initWebSocket(), 3000);
-                };
-            }
-
-            async sendMessage(message, userId = 'anonymous', options = {}) {
-                const requestBody = {
-                    message: message,
-                    user_id: userId,
-                    session_id: this.sessionId,
-                    context: options.context || {},
-                    stream: options.stream || false,
-                    model: options.model || 'turtle-healthcare-v1'
-                };
-
-                try {
-                    const response = await fetch(`${this.baseURL}/api/v1/chat`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            ...(this.apiKey && { 'Authorization': `Bearer ${this.apiKey}` })
-                        },
-                        body: JSON.stringify(requestBody)
-                    });
-
-                    if (!response.ok) {
-                        throw new Error(`Turtle AI Error: ${response.statusText}`);
-                    }
-
-                    const data = await response.json();
-                    return this.formatResponse(data);
-                } catch (error) {
-                    console.error('🐢 Turtle AI request failed:', error);
-                    return this.getOfflineResponse(message);
-                }
-            }
-
-            handleStreamingResponse(data) {
-                if (data.type === 'chunk') {
-                    window.dispatchEvent(new CustomEvent('turtleai-chunk', { 
-                        detail: { text: data.content, isComplete: false }
-                    }));
-                } else if (data.type === 'complete') {
-                    window.dispatchEvent(new CustomEvent('turtleai-chunk', { 
-                        detail: { text: '', isComplete: true, fullResponse: data.response }
-                    }));
-                }
-            }
-
-            flushMessageQueue() {
-                while (this.messageQueue.length > 0) {
-                    const { message, userId, onChunk, onComplete } = this.messageQueue.shift();
-                    this.streamMessage(message, userId, onChunk, onComplete);
-                }
-            }
-
-            formatResponse(data) {
-                return {
-                    success: data.success || true,
-                    response: data.response || data.message,
-                    quickReplies: data.quick_replies || data.suggestions || [],
-                    intent: data.intent || 'general',
-                    confidence: data.confidence || 1.0,
-                    metadata: data.metadata || {}
-                };
-            }
-
-            getOfflineResponse(message) {
-                const lowerMessage = message.toLowerCase();
-
-                const offlineResponses = {
-                    doctor: {
-                        response: '🩺 I can help you find doctors! Our specialists are available for consultations. Please note: I\'m currently offline, but I can still guide you.',
-                        quickReplies: ['View Doctors', 'Specialties', 'Book Appointment']
-                    },
-                    medicine: {
-                        response: '💊 I can assist with medicine information. While I\'m offline, you can browse our medicine catalog or upload a prescription.',
-                        quickReplies: ['Browse Medicines', 'Upload Prescription', 'Check Interactions']
-                    },
-                    test: {
-                        response: '🔬 Lab tests can be booked easily. I\'m currently offline, but you can still explore our test packages.',
-                        quickReplies: ['View Tests', 'Book Test', 'Home Collection']
-                    },
-                    default: {
-                        response: '👋 Hello! I\'m your healthcare assistant. I\'m currently in offline mode, but I can still help you navigate the platform.',
-                        quickReplies: ['Find Doctors', 'Book Tests', 'Order Medicines', 'Health Records']
-                    }
-                };
-
-                for (const [key, value] of Object.entries(offlineResponses)) {
-                    if (lowerMessage.includes(key)) {
-                        return { success: true, ...value };
-                    }
-                }
-
-                return { success: true, ...offlineResponses.default };
-            }
-
-            async healthCheck() {
-                try {
-                    const response = await fetch(`${this.baseURL}/api/health`);
-                    const data = await response.json();
-                    return data.status === 'healthy';
-                } catch (error) {
-                    return false;
-                }
-            }
-        }
-
-        // Initialize Turtle AI
-        const turtleAI = new TurtleAI({
-            baseURL: 'http://localhost:8000',
-            apiKey: null
-        });
-
-        // Check Turtle AI health on page load
-        turtleAI.healthCheck().then(isHealthy => {
-            if (isHealthy) {
-                console.log('🐢 Turtle AI is online and ready');
-                turtleAI.initWebSocket();
-            } else {
-                console.warn('🐢 Turtle AI is offline - using fallback responses');
-            }
-        });
-
-        // Listen for streaming chunks
-        window.addEventListener('turtleai-chunk', (event) => {
-            const { text, isComplete, fullResponse } = event.detail;
-            
-            if (!isComplete) {
-                updateStreamingMessage(text);
-            } else {
-                finalizeStreamingMessage(fullResponse);
-            }
-        });
-
-        // Helper functions for Turtle AI integration
-        function getCurrentUserId() {
-            return localStorage.getItem('userId') || null;
-        }
-
-        function getCurrentPage() {
-            const activePage = document.querySelector('.page-section.active');
-            return activePage ? activePage.id : 'home';
-        }
-
-        function getUserProfile() {
-            const profile = localStorage.getItem('userProfile');
-            return profile ? JSON.parse(profile) : {};
-        }
-
-        function logChatInteraction(userMessage, botResponse) {
-            console.log('Chat Interaction:', {
-                user: userMessage,
-                bot: botResponse.response,
-                intent: botResponse.intent,
-                timestamp: new Date().toISOString()
-            });
-        }
-
-        // Streaming message functions
-        let currentStreamingMessageId = null;
-
-        function updateStreamingMessage(chunk) {
-            if (!currentStreamingMessageId) {
-                removeTypingIndicator();
-                const messageId = `stream_${Date.now()}`;
-                const messageHtml = `
-                    <div class="chat-message bot" id="${messageId}">
-                        <div class="message-avatar bot">
-                            <i class="bi bi-robot"></i>
-                        </div>
-                        <div class="message-content">
-                            <div class="message-bubble streaming-text">${chunk}</div>
-                            <div class="message-time">${getCurrentTime()}</div>
-                        </div>
-                    </div>
-                `;
-                chatbotMessages.insertAdjacentHTML('beforeend', messageHtml);
-                currentStreamingMessageId = messageId;
-            } else {
-                const streamingBubble = document.querySelector(`#${currentStreamingMessageId} .streaming-text`);
-                if (streamingBubble) {
-                    streamingBubble.textContent += chunk;
-                }
-            }
-            scrollToBottom();
-        }
-
-        function finalizeStreamingMessage(fullResponse) {
-            currentStreamingMessageId = null;
-            scrollToBottom();
-        }
-
         // Page navigation system
-        const navLinksEl = document.querySelectorAll('.nav-link');
-        const pageSectionsEl = document.querySelectorAll('.page-section');
-        const dockItemsEl = document.querySelectorAll('.dock-item');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pageSections = document.querySelectorAll('.page-section');
+        const dockItems = document.querySelectorAll('.dock-item');
 
         function navigateToPage(pageName) {
             // Remove active class from all nav links
-            navLinksEl.forEach(l => l.classList.remove('active'));
+            navLinks.forEach(l => l.classList.remove('active'));
             
             // Add active class to matching nav link
             const matchingNavLink = document.querySelector(`.nav-link[data-page="${pageName}"]`);
@@ -2718,7 +2485,7 @@
             }
             
             // Hide all page sections
-            pageSectionsEl.forEach(section => section.classList.remove('active'));
+            pageSections.forEach(section => section.classList.remove('active'));
             
             // Show selected page section
             const pageId = 'page-' + pageName;
@@ -2730,7 +2497,7 @@
         }
 
         // Navigation links click handler
-        navLinksEl.forEach(link => {
+        navLinks.forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 navigateToPage(this.getAttribute('data-page'));
@@ -2738,7 +2505,7 @@
         });
 
         // Motion dock items click handler
-        dockItemsEl.forEach(item => {
+        dockItems.forEach(item => {
             item.addEventListener('click', function() {
                 const pageName = this.getAttribute('data-page');
                 navigateToPage(pageName);
@@ -2754,9 +2521,9 @@
         });
 
         // Search functionality
-        const searchInputEl = document.querySelector('.search-input');
-        if (searchInputEl) {
-            searchInputEl.addEventListener('focus', function() {
+        const searchInput = document.querySelector('.search-input');
+        if (searchInput) {
+            searchInput.addEventListener('focus', function() {
                 this.style.transform = 'scale(1.02)';
             });
 
@@ -3043,7 +2810,7 @@
             chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
         }
 
-        // Modified sendMessage function with Turtle AI integration
+        // Send message to FastAPI backend
         async function sendMessage(message) {
             // Add user message
             addUserMessage(message);
@@ -3052,28 +2819,28 @@
             // Show typing indicator
             showTypingIndicator();
 
-            // Get current user ID (from auth system or use anonymous)
-            const userId = getCurrentUserId() || 'anonymous_user';
-
             try {
-                // Send to Turtle AI
-                const response = await turtleAI.sendMessage(message, userId, {
-                    context: {
-                        page: getCurrentPage(),
-                        userProfile: getUserProfile()
+                // Call FastAPI backend
+                const response = await fetch(FASTAPI_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
                     },
-                    stream: false // Set to true for streaming responses
+                    body: JSON.stringify({
+                        message: message,
+                        user_id: 'user_123', // In production, use actual user ID from auth
+                        session_id: 'session_' + Date.now()
+                    })
                 });
+
+                const data = await response.json();
 
                 // Remove typing indicator
                 removeTypingIndicator();
 
                 // Add bot response
-                if (response.success) {
-                    addBotMessage(response.response, response.quickReplies || []);
-                    
-                    // Log analytics
-                    logChatInteraction(message, response);
+                if (data.success) {
+                    addBotMessage(data.response, data.quick_replies || []);
                 } else {
                     addBotMessage('Sorry, I encountered an error. Please try again.');
                 }
@@ -3081,9 +2848,9 @@
                 console.error('Error:', error);
                 removeTypingIndicator();
                 
-                // Use Turtle AI fallback
-                const fallbackResponse = turtleAI.getOfflineResponse(message);
-                addBotMessage(fallbackResponse.response, fallbackResponse.quickReplies);
+                // Fallback responses when backend is not available
+                const fallbackResponse = getFallbackResponse(message);
+                addBotMessage(fallbackResponse.message, fallbackResponse.quickReplies);
             }
         }
 

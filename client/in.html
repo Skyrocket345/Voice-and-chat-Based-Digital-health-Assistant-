@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ninja Xperts - Health is Wealth</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            /* ... (Your existing root variables) ... */
+            --color-white: rgba(255, 255, 255, 1);
+            --color-cream-50: rgba(252, 252, 249, 1);
+            --color-gray-200: rgba(245, 245, 245, 1);
+            --color-gray-300: rgba(167, 169, 169, 1);
+            --color-slate-500: rgba(98, 108, 113, 1);
+            --color-slate-900: rgba(19, 52, 59, 1);
+            --color-teal-500: rgba(33, 128, 141, 1);
+            
+            --apollo-green: #138808;
+            --apollo-green-dark: #0f6906;
+            --apollo-orange: #ff6f3d;
+            --apollo-blue: #0090d9;
+            --apollo-bg: #f8f9fa;
+            
+            --color-background: var(--apollo-bg);
+            --color-text: var(--color-slate-900);
+            --color-text-secondary: var(--color-slate-500);
+            --color-primary: var(--apollo-green);
+            --color-border: rgba(94, 82, 64, 0.2);
+            
+            --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --space-8: 8px;
+            --space-12: 12px;
+            --space-16: 16px;
+            --space-24: 24px;
+            --radius-base: 8px;
+            --radius-lg: 12px;
+            --radius-full: 9999px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+            --duration-normal: 250ms;
+            --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+
+            /* NEW BEAMS SIMULATION VARIABLES */
+            --beam-color: rgba(255, 255, 255, 0.08); /* Faint white beams */
+            --hero-bg-dark: #101015; /* Near black background */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family-base);
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+
+        /* --- Existing Styles (omitted for brevity, assume they are still there) --- */
+        /* Header, Nav, Action Cards, Condition Cards, Doctor Cards, Test Cards, Records, Chatbot, Modal */
+        /* ... (Your existing styles here, including responsiveness) ... */
+
+        /* Hero Section MODIFIED for Beams Look */
+        .hero-section {
+            /* Replaced linear gradient with dark solid color for abstract/3D feel */
+            background-color: var(--hero-bg-dark); 
+            padding: 80px 0; /* Increased padding for more presence */
+            color: white;
+            position: relative;
+            overflow: hidden;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 5px solid var(--apollo-green);
+        }
+        
+        /* 1. Beams container placeholder CSS (from your Beams component) */
+        .beams-container-simulated {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            opacity: 0.8; /* Slightly reduce opacity for a softer look */
+        }
+
+        /* 2. CSS for simulating the abstract beams effect */
+        .beam-effect-line {
+            position: absolute;
+            bottom: 0;
+            left: var(--left-pos);
+            width: 2px;
+            height: var(--line-height);
+            background: var(--beam-color);
+            transform-origin: bottom center;
+            animation: beamPulse var(--anim-duration) infinite linear;
+            filter: blur(0.5px);
+        }
+
+        @keyframes beamPulse {
+            0% { 
+                transform: scaleY(0.1) translateY(0); 
+                opacity: 0; 
+                filter: blur(0.5px);
+            }
+            50% { 
+                transform: scaleY(1.2) translateY(-20px); 
+                opacity: 0.5; 
+                filter: blur(1px);
+            }
+            100% { 
+                transform: scaleY(0.1) translateY(0); 
+                opacity: 0; 
+                filter: blur(0.5px);
+            }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 10; /* Ensure content is above the beams effect */
+            text-align: center;
+            padding-top: 50px; /* Adjust for larger header */
+        }
+
+        .hero-title {
+            font-size: 3.5rem; /* Larger title for impact */
+            font-weight: 800; 
+            margin-bottom: var(--space-24);
+            text-shadow: 0 4px 8px rgba(0,0,0,0.4);
+            color: var(--color-white); /* Ensure color is white/light */
+            letter-spacing: 2px;
+        }
+
+        .search-box {
+            max-width: 700px; /* Slightly wider search box */
+            margin: var(--space-24) auto;
+        }
+
+        .search-input {
+            padding: var(--space-16) var(--space-24);
+            padding-left: 55px; /* Adjust padding for bigger icon */
+            font-size: 1.1rem;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Stronger shadow on dark background */
+        }
+
+        .search-icon {
+            left: 25px; /* Adjust icon position */
+            font-size: 1.5rem; /* Larger icon */
+            color: var(--color-text-secondary);
+        }
+
+        .hero-illustrations {
+            /* Reworking illustration: Hide on dark abstract background */
+            display: none; 
+        }
+
+        /* Action Cards Section - Adjusted Spacing on new page look */
+        .quick-actions {
+             margin-top: -60px; /* Move section up to overlap with dark hero end */
+             position: relative;
+             z-index: 20;
+        }
+        
+        .quick-actions .action-card {
+            background-color: var(--color-white);
+            border: none;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                 min-height: 400px;
+                 padding: 50px 0;
+            }
+            .hero-title {
+                 font-size: 2.2rem;
+            }
+            .quick-actions {
+                 margin-top: -40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-header">
+        <div class="container-custom">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-3">
+                    <svg class="logo" viewBox="0 0 150 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="20" r="18" fill="#138808"/>
+                        <path d="M20 8L24 16H16L20 8Z" fill="white"/>
+                        <circle cx="20" cy="20" r="4" fill="white"/>
+                        <text x="45" y="26" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#138808">Ninja</text>
+                        <text x="45" y="35" font-family="Arial, sans-serif" font-size="8" fill="#666">XPERTS</text>
+                    </svg>
+                </div>
+
+                <div class="location-selector d-none d-md-flex">
+                    <i class="bi bi-geo-alt-fill" style="color: var(--apollo-orange); font-size: 1.5rem;"></i>
+                    <div>
+                        <div class="location-text">Delivery Address</div>
+                        <div class="location-value">Thane 421501 <i class="bi bi-chevron-down"></i></div>
+                    </div>
+                </div>
+
+                <div class="header-icons">
+                    <div class="header-icon d-none d-md-block">
+                        <i class="bi bi-gear"></i>
+                    </div>
+                    <div class="header-icon">
+                        <i class="bi bi-cart3"></i>
+                        <span class="cart-badge">0</span>
+                    </div>
+                    <button class="login-btn" id="openAuthModal">
+                        <i class="bi bi-person-circle"></i>
+                        <span class="d-none d-md-inline">Login</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="main-nav">
+        <div class="container-custom">
+            <ul class="nav-menu">
+                <li><a class="nav-link active" data-page="home">Healthier</a></li>
+                <li><a class="nav-link" data-page="doctors">Find Doctors</a></li>
+                <li><a class="nav-link" data-page="lab-tests">Lab Tests</a></li>
+                <li><a class="nav-link" data-page="ninja-x">Ninja X</a></li>
+                <li><a class="nav-link" data-page="health-records">Health Records</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="motion-dock" class="motion-dock-container">
+        <div class="dock-outer">
+            <div class="dock-panel">
+                <div class="dock-item" data-page="home">
+                    <div class="dock-icon">
+                        <i class="bi bi-house-fill"></i>
+                    </div>
+                    <div class="dock-label">Healthier</div>
+                </div>
+                <div class="dock-item" data-page="doctors">
+                    <div class="dock-icon">
+                        <i class="bi bi-person-hearts"></i>
+                    </div>
+                    <div class="dock-label">Find Doctors</div>
+                </div>
+                <div class="dock-item" data-page="lab-tests">
+                    <div class="dock-icon">
+                        <i class="bi bi-clipboard2-pulse-fill"></i>
+                    </div>
+                    <div class="dock-label">Lab Tests</div>
+                </div>
+                <div class="dock-item" data-page="ninja-x">
+                    <div class="dock-icon">
+                        <i class="bi bi-lightning-charge-fill"></i>
+                    </div>
+                    <div class="dock-label">Ninja X</div>
+                </div>
+                <div class="dock-item" data-page="health-records">
+                    <div class="dock-icon">
+                        <i class="bi bi-folder-fill"></i>
+                    </div>
+                    <div class="dock-label">Health Records</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-nav">
+        <div class="container-custom">
+            <div class="category-pills">
+                <button class="category-pill active">YogaMate</button>
+                <button class="category-pill">GYMbar</button>
+                <button class="category-pill">Drinks &amp; Supplements</button>
+                <button class="category-pill">Personal Care</button>
+                <button class="category-pill">Ayurvedic</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-home" class="page-section active">
+        <section class="hero-section">
+            <div class="beams-container-simulated">
+                <div class="beam-effect-line" style="--left-pos: 5%; --line-height: 100px; --anim-duration: 4s; animation-delay: 0s;"></div>
+                <div class="beam-effect-line" style="--left-pos: 15%; --line-height: 200px; --anim-duration: 5s; animation-delay: 0.5s;"></div>
+                <div class="beam-effect-line" style="--left-pos: 25%; --line-height: 150px; --anim-duration: 3s; animation-delay: 1s;"></div>
+                <div class="beam-effect-line" style="--left-pos: 35%; --line-height: 250px; --anim-duration: 4.5s; animation-delay: 1.5s;"></div>
+                <div class="beam-effect-line" style="--left-pos: 45%; --line-height: 300px; --anim-duration: 3.5s; animation-delay: 2s;"></div>
+                <div class="beam-effect-line" style="--left-pos: 55%; --line-height: 180px; --anim-duration: 5.5s; animation-delay: 2.5s;"></div>
+                <div class="beam-effect-line" style="--left-pos: 65%; --line-height: 120px; --anim-duration: 4s; animation-delay: 3s;"></div>
+                <div class="beam-effect-line" style="--left-pos: 75%; --line-height: 220px; --anim-duration: 6s; animation-delay: 3.5s;"></div>
+                <div class="beam-effect-line" style="--left-pos: 85%; --line-height: 170px; --anim-duration: 3s; animation-delay: 4s;"></div>
+                <div class="beam-effect-line" style="--left-pos: 95%; --line-height: 280px; --anim-duration: 5s; animation-delay: 4.5s;"></div>
+            </div>
+            
+            <div class="container-custom">
+                <div class="hero-content">
+                    <h1 class="hero-title">MEds ESSENTIALS</h1>
+                    <div class="search-box">
+                        <i class="bi bi-search search-icon"></i>
+                        <input type="text" class="search-input" placeholder="Search Medicines and Health Products">
+                    </div>
+                    <div class="hero-illustrations" style="display: none;"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="quick-actions">
+            <div class="container-custom">
+                <div class="row g-3">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="action-card bg-mint">
+                            <div class="action-icon"><i class="bi bi-shop"></i></div>
+                            <div class="action-content">
+                                <div class="action-title">Pharmacy Near Me</div>
+                                <div class="action-subtitle">FIND STORE</div>
+                            </div>
+                            <div class="action-arrow"><i class="bi bi-chevron-right"></i></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="action-card bg-peach">
+                            <div class="action-icon"><i class="bi bi-clipboard-check"></i></div>
+                            <div class="action-content">
+                                <div class="action-title">Get 20% off on Medicines</div>
+                                <div class="action-subtitle">UPLOAD NOW</div>
+                            </div>
+                            <div class="action-arrow"><i class="bi bi-chevron-right"></i></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="action-card bg-lavender">
+                            <div class="action-icon"><i class="bi bi-calendar2-check"></i></div>
+                            <div class="action-content">
+                                <div class="action-title">Doctor Appointment</div>
+                                <div class="action-subtitle">BOOK NOW</div>
+                            </div>
+                            <div class="action-arrow"><i class="bi bi-chevron-right"></i></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="action-card bg-yellow">
+                            <div class="action-icon"><i class="bi bi-shield-fill-check"></i></div>
+                            <div class="action-content">
+                                <div class="action-title">Health Insurance</div>
+                                <div class="action-subtitle">EXPLORE PLANS</div>
+                            </div>
+                            <div class="action-arrow"><i class="bi bi-chevron-right"></i></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="action-card bg-blue">
+                            <div class="action-icon"><i class="bi bi-droplet-fill"></i></div>
+                            <div class="action-content">
+                                <div class="action-title">Lab Tests</div>
+                                <div class="action-subtitle">AT HOME</div>
+                            </div>
+                            <div class="action-arrow"><i class="bi bi-chevron-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="health-conditions" style="margin-top: 60px;">
+            <div class="container-custom">
+                <h2 class="section-title">Know by Health is Wealth</h2>
+                <div class="row g-4">
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <div class="condition-card">
+                            <div class="condition-icon"><i class="bi bi-activity"></i></div>
+                            <div class="condition-name">Diabetes Care</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <div class="condition-card">
+                            <div class="condition-icon"><i class="bi bi-heart-pulse"></i></div>
+                            <div class="condition-name">Cardiac Care</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <div class="condition-card">
+                            <div class="condition-icon"><i class="bi bi-capsule"></i></div>
+                            <div class="condition-name">Stomach Care</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <div class="condition-card">
+                            <div class="condition-icon"><i class="bi bi-bandaid"></i></div>
+                            <div class="condition-name">Pain Relief</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <div class="condition-card">
+                            <div class="condition-icon"><i class="bi bi-lungs"></i></div>
+                            <div class="condition-name">Liver Care</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <div class="condition-card">
+                            <div class="condition-icon"><i class="bi bi-thermometer-half"></i></div>
+                            <div class="condition-name">Fever Care</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <div class="condition-card">
+                            <div class="condition-icon"><i class="bi bi-emoji-dizzy"></i></div>
+                            <div class="condition-name">Kidney Care</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <div class="condition-card">
+                            <div class="condition-icon"><i class="bi bi-virus"></i></div>
+                            <div class="condition-name">Cold &amp; Cough</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <div class="condition-card">
+                            <div class="condition-icon"><i class="bi bi-people-fill"></i></div>
+                            <div class="condition-name">Family Care</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <div class="condition-card">
+                            <div class="condition-icon"><i class="bi bi-eye"></i></div>
+                            <div class="condition-name">Eye Care</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <div class="condition-card">
+                            <div class="condition-icon"><i class="bi bi-person-hearts"></i></div>
+                            <div class="condition-name">Skin Care</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <div class="condition-card">
+                            <div class="condition-icon"><i class="bi bi-brightness-high"></i></div>
+                            <div class="condition-name">Bone Care</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // ... (Your existing JavaScript functions for navigation, modal, and chatbot logic) ...
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pageSections = document.querySelectorAll('.page-section');
+        const dockItems = document.querySelectorAll('.dock-item');
+
+        function navigateToPage(pageName) {
+            navLinks.forEach(l => l.classList.remove('active'));
+            const matchingNavLink = document.querySelector(`.nav-link[data-page="${pageName}"]`);
+            if (matchingNavLink) {
+                matchingNavLink.classList.add('active');
+            }
+            pageSections.forEach(section => section.classList.remove('active'));
+            const pageId = 'page-' + pageName;
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                navigateToPage(this.getAttribute('data-page'));
+            });
+        });
+        dockItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const pageName = this.getAttribute('data-page');
+                navigateToPage(pageName);
+            });
+        });
+        // ... (rest of your existing JS) ...
+        
+        // Category pill activation
+        document.querySelectorAll('.category-pill').forEach(pill => {
+            pill.addEventListener('click', function() {
+                document.querySelectorAll('.category-pill').forEach(p => p.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.querySelector('.search-input');
+        if (searchInput) {
+            searchInput.addEventListener('focus', function() {
+                this.style.transform = 'scale(1.02)';
+            });
+
+            searchInput.addEventListener('blur', function() {
+                this.style.transform = 'scale(1)';
+            });
+        }
+        
+        // Auth Modal Management (using your existing functions)
+        const authModal = document.getElementById('authModal');
+        const openAuthModalBtn = document.getElementById('openAuthModal');
+        const closeAuthModalBtn = document.getElementById('closeAuthModal');
+        const authTabs = document.querySelectorAll('.auth-tab');
+        const authForms = document.querySelectorAll('.auth-form');
+        const footerText = document.getElementById('authFooter');
+
+        openAuthModalBtn.addEventListener('click', function() {
+            authModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeAuthModalBtn.addEventListener('click', function() {
+            authModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        authModal.addEventListener('click', function(e) {
+            if (e.target === authModal) {
+                authModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        function attachSwitchAuthListener() {
+            const newSwitchAuthLink = document.getElementById('switchAuth');
+            if (newSwitchAuthLink) {
+                newSwitchAuthLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const currentTab = document.querySelector('.auth-tab.active').getAttribute('data-tab');
+                    const targetTab = currentTab === 'login' ? 'signup' : 'login';
+                    document.querySelector(`.auth-tab[data-tab="${targetTab}"]`).click();
+                });
+            }
+        }
+        
+        authTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabName = this.getAttribute('data-tab');
+                authTabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                authForms.forEach(form => {
+                    form.classList.remove('active');
+                    if (form.id === tabName + 'Form') {
+                        form.classList.add('active');
+                    }
+                });
+                
+                const footerTextContent = document.getElementById('footerText');
+                if (footerTextContent) {
+                    if (tabName === 'login') {
+                        footerTextContent.innerHTML = 'Don\'t have an account? <a href="#" id="switchAuth">Sign up now</a>';
+                    } else {
+                        footerTextContent.innerHTML = 'Already have an account? <a href="#" id="switchAuth">Sign in</a>';
+                    }
+                    attachSwitchAuthListener();
+                }
+            });
+        });
+        
+        attachSwitchAuthListener();
+
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const icon = input.nextElementSibling.querySelector('i');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+            }
+        }
+        window.togglePassword = togglePassword; // Make it globally accessible for inline onclick
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Login successful! (Simulated)');
+            authModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            openAuthModalBtn.innerHTML = '<i class="bi bi-person-circle"></i><span class="d-none d-md-inline">Account</span>';
+        });
+
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            if (password.length < 8) {
+                alert('Password must be at least 8 characters long!');
+                return;
+            }
+            alert('Account created successfully! (Simulated)');
+            document.querySelector('.auth-tab[data-tab="login"]').click();
+        });
+
+        // AI Chatbot Functionality (using your existing functions)
+        const chatbotToggle = document.getElementById('chatbotToggle');
+        const chatbotWindow = document.getElementById('chatbotWindow');
+        const chatbotClose = document.getElementById('chatbotClose');
+        const chatbotMessages = document.getElementById('chatbotMessages');
+        const chatbotInput = document.getElementById('chatbotInput');
+        const chatbotSend = document.getElementById('chatbotSend');
+
+        const FASTAPI_URL = 'http://localhost:8000/api/chat'; // Placeholder
+
+        chatbotToggle.addEventListener('click', function() {
+            chatbotWindow.classList.toggle('active');
+            if (chatbotWindow.classList.contains('active')) {
+                chatbotInput.focus();
+            }
+        });
+
+        chatbotClose.addEventListener('click', function() {
+            chatbotWindow.classList.remove('active');
+        });
+
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('quick-reply-btn')) {
+                const message = e.target.getAttribute('data-message');
+                sendMessage(message);
+            }
+        });
+
+        chatbotSend.addEventListener('click', function() {
+            const message = chatbotInput.value.trim();
+            if (message) {
+                sendMessage(message);
+            }
+        });
+
+        chatbotInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const message = chatbotInput.value.trim();
+                if (message) {
+                    sendMessage(message);
+                }
+            }
+        });
+
+        function getCurrentTime() {
+            const now = new Date();
+            return now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function addUserMessage(message) {
+            const messageHtml = `
+                <div class="chat-message user">
+                    <div class="message-avatar user">
+                        <i class="bi bi-person-fill"></i>
+                    </div>
+                    <div class="message-content">
+                        <div class="message-bubble">${message}</div>
+                        <div class="message-time">${getCurrentTime()}</div>
+                    </div>
+                </div>
+            `;
+            chatbotMessages.insertAdjacentHTML('beforeend', messageHtml);
+            scrollToBottom();
+        }
+
+        function addBotMessage(message, quickReplies = []) {
+            const quickRepliesHtml = quickReplies.length > 0 ? `
+                <div class="quick-replies">
+                    ${quickReplies.map(reply => `
+                        <button class="quick-reply-btn" data-message="${reply}">${reply}</button>
+                    `).join('')}
+                </div>
+            ` : '';
+
+            const messageHtml = `
+                <div class="chat-message bot">
+                    <div class="message-avatar bot">
+                        <i class="bi bi-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <div class="message-bubble">${message}</div>
+                        ${quickRepliesHtml}
+                        <div class="message-time">${getCurrentTime()}</div>
+                    </div>
+                </div>
+            `;
+            chatbotMessages.insertAdjacentHTML('beforeend', messageHtml);
+            scrollToBottom();
+        }
+
+        function showTypingIndicator() {
+            const typingHtml = `
+                <div class="chat-message bot typing-message">
+                    <div class="message-avatar bot">
+                        <i class="bi bi-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <div class="typing-indicator">
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            chatbotMessages.insertAdjacentHTML('beforeend', typingHtml);
+            scrollToBottom();
+        }
+
+        function removeTypingIndicator() {
+            const typingMessage = chatbotMessages.querySelector('.typing-message');
+            if (typingMessage) {
+                typingMessage.remove();
+            }
+        }
+
+        function scrollToBottom() {
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        async function sendMessage(message) {
+            addUserMessage(message);
+            chatbotInput.value = '';
+            showTypingIndicator();
+
+            try {
+                const response = await fetch(FASTAPI_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        user_id: 'user_123',
+                        session_id: 'session_' + Date.now()
+                    })
+                });
+
+                const data = await response.json();
+                removeTypingIndicator();
+
+                if (data.success) {
+                    addBotMessage(data.response, data.quick_replies || []);
+                } else {
+                    addBotMessage('Sorry, I encountered an error. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                removeTypingIndicator();
+                
+                const fallbackResponse = getFallbackResponse(message);
+                addBotMessage(fallbackResponse.message, fallbackResponse.quickReplies);
+            }
+        }
+
+        function getFallbackResponse(message) {
+            const lowerMessage = message.toLowerCase();
+
+            if (lowerMessage.includes('doctor') || lowerMessage.includes('appointment')) {
+                return {
+                    message: 'I can help you find the right doctor! We have specialists in various fields. Would you like to book an appointment?',
+                    quickReplies: ['View Cardiologists', 'View Dermatologists', 'View General Physicians']
+                };
+            } else if (lowerMessage.includes('lab') || lowerMessage.includes('test')) {
+                return {
+                    message: 'We offer a wide range of lab tests with home collection. What type of test are you looking for?',
+                    quickReplies: ['Blood Tests', 'Full Body Checkup', 'Diabetes Tests']
+                };
+            } else if (lowerMessage.includes('medicine') || lowerMessage.includes('drug')) {
+                return {
+                    message: 'I can help you find medicines and understand their usage. What medication information do you need?',
+                    quickReplies: ['Search Medicine', 'Upload Prescription', 'Medicine Reminders']
+                };
+            } else if (lowerMessage.includes('health tip') || lowerMessage.includes('advice')) {
+                return {
+                    message: '💚 Here are some quick health tips:\n\n1. Drink 8 glasses of water daily\n2. Get 7-8 hours of sleep\n3. Exercise for 30 minutes daily\n4. Eat balanced meals\n5. Regular health checkups',
+                    quickReplies: ['More Tips', 'Book Checkup', 'Nutrition Advice']
+                };
+            } else {
+                return {
+                    message: 'I\'m here to assist you with healthcare needs. How can I help you today?',
+                    quickReplies: ['Find Doctors', 'Book Lab Tests', 'Order Medicines', 'Health Records']
+                };
+            }
+        }
+        console.log('AI Doctor Chatbot initialized');
+    </script>
+</body>
+</html>
