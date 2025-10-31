@@ -218,7 +218,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #138808, #0090d9);
+            background: linear-gradient(135deg, rgba(19, 136, 8, 0.85), rgba(0, 144, 217, 0.85)), 
+                        url('https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/images/135082578/4ebe04a4-2bf2-4ee8-b475-a0813dc34e08/WhatsApp-Image-2025-10-31-at-01.42.23_306c8809.jpg?AWSAccessKeyId=ASIA2F3EMEYEYVARBSZY&Signature=ysr0BYXqtIdZ1LhDXu7MT0Fenmg%3D&x-amz-security-token=IQoJb3JpZ2luX2VjED0aCXVzLWVhc3QtMSJGMEQCIBVn1B5ZcfM0mq6MvUYYy0i6CvmvuFNsPk0vKMFCdto8AiBvPYnL2ASGiyHpqkxezQtStsFM2XcHpzgUSL69rVkOqCr8BAj2%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAEaDDY5OTc1MzMwOTcwNSIMUFjipof7BYaMcTIDKtAE6SXt1cmjeKzmoKL5bNveKM50iXO7IoEZ60234vYDZMhRcY3uSddAVWrnyshb3T67%2FF7PmeZxlv8FM3qHbebE0DJZKHuXw1rGewd%2F4k3g6tNSIY%2FbOOKgimtFYateNIoqWK1zpefDzr1aL9RUyIWg%2BE2oEj%2FhNaSdBDxttKkz42R9FHHN1DxXy6x5JyZsy9rLmJiLzJdy8tV8mjquOpgtN5PBPyVZMJNBHzzZyYFoYqfExMqkF1abGCnm8GwkS1YGhvSaKhy%2FoMUO6Zk0uyJ5Q6MbzlrVQwi0OEQt4wPadUyp9uny%2F6ZV5Jf7Nf84OpjR9yES0bhc1umLfNqVU7r%2BNarA8%2Fs4nFE9IZ9Tp6DKKkl%2BHaqUC4N5G8SHdCmEHtS306fvtkc1pBURMtint1Dq9ZArKQHDtmK2V6W%2FD5AnAGqifXMiQFna%2BdiUYwKi24pOPxRakIENZHVTWA0TgywiwyRRGmz5aD1CWn9KmWgZ2cW2nBQ0fGe3Gs0J4DsOfqxwrc38c0CKF4ha%2FJyW4bY9yt2H%2BIpkVBVSbhtUWHRS%2BDIjIQ50Dt8RzN12TL5GzePEFnbD0J5h7EtNZQq%2F9ijreJAYIrCEprPRoqT0jdg%2BOFFuITHrz9XPcjr0Gixxai7zq%2F2BplL%2FrT4yCdoLJbVCfzo%2BKvByU%2FbQyu5lUsalWW6%2BiXxMMzcHlxSB21uIUN41glruWuHp4ByTGsFr8IQ8EA2UOteugJ5FVCvjV%2FSbHbKXJjWsbXi7SQOsN3o4tJ%2B%2Fp4MJll0bE0QpOyvaFcs39DDWlo%2FIBjqZAekZIZlKrmDFoDNSC1L99AHpnxQyB3xa9PgKcT1HOm0eyaNtmw4AeN8U2e82px1KScIeGJF0S2lwgJxSRu6yLcss54Y5vDov4aKs9Rq6PdQrmwIo8Uej9kHjVDii%2B1JvFYn1%2FFIWIBl64IRqVHMYEN36vRqKqYTvTT5EhSrA2lab9P91OWNT7zMCpHURSBq8jrgvJi89h1nKtg%3D%3D&Expires=1764450878') center/cover;
             overflow: hidden;
             margin-bottom: 3rem;
         }
@@ -229,7 +230,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            opacity: 0.3;
+            opacity: 0.2;
         }
 
         .hero-overlay {
@@ -238,7 +239,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+            background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
         }
 
         .hero-content {
@@ -387,11 +388,100 @@
             padding: 2rem 0;
             text-align: center;
             margin-top: 4rem;
+            position: relative;
+            bottom: 0;
+            width: 100%;
         }
 
         .footer-text {
             margin: 0;
             opacity: 0.8;
+        }
+
+        .hover-panel {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            z-index: 998;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .hover-panel-item {
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            background: white;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .hover-panel-item:hover {
+            transform: scale(1.1);
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border-color: white;
+        }
+
+        .hover-panel-item:hover .hover-panel-icon {
+            color: white;
+        }
+
+        .hover-panel-item.active {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+        }
+
+        .hover-panel-item.active .hover-panel-icon {
+            color: white;
+        }
+
+        .hover-panel-icon {
+            font-size: 1.5rem;
+            color: var(--color-text);
+            transition: color 0.3s;
+        }
+
+        .hover-panel-tooltip {
+            position: absolute;
+            right: calc(100% + 15px);
+            background: var(--color-text);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .hover-panel-item:hover .hover-panel-tooltip {
+            opacity: 1;
+        }
+
+        .hover-panel-tooltip::after {
+            content: '';
+            position: absolute;
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid var(--color-text);
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
         }
 
         .page-section {
@@ -420,19 +510,6 @@
                 padding: 0.5rem;
             }
         }
-        
-        /* 
-        Updated the dock navigation to replace "Health Records" with "Turtle AI" chatbot. 
-        Created a fully functional AI chat interface with:
-        - Turtle AI SDK Integration: Complete FastAPI connection class with WebSocket support
-        - Interactive Chat UI: Modern chat interface with message bubbles and animations
-        - Quick Reply Buttons: Context-aware suggestions for healthcare queries
-        - Real-time Messaging: Message streaming support with loading states
-        - Healthcare Context: Specialized responses for doctor, medicine, and lab test queries
-        - Clear Chat: Session reset functionality
-        - Responsive Design: Floating chat window with gradient header
-        - Error Handling: Graceful offline mode with helpful fallback responses
-        */
     </style>
 </head>
 <body>
@@ -546,26 +623,44 @@
             }
 
             getOfflineResponse(message) {
-                const lowerMessage = message.toLowerCase();
+                const lowerMessage = message.toLowerCase();            const medicalKnowledge = {
+                hipaa: {
+                    response: '🔒 **HIPAA (Health Insurance Portability and Accountability Act)** protects your health information privacy.\n\n**Key Rights:**\n• Access your medical records\n• Request corrections to records\n• Get notice of privacy practices\n• Decide who sees your health info\n\n**Privacy Rule:** National standards protect PHI (Protected Health Information). Covered entities must secure patient records and limit access.\n\n**Your healthcare provider can share information for treatment, payment, and operations without consent, but needs authorization for other uses.**',
+                    quickReplies: ['Patient Rights', 'Privacy Practices', 'Data Security', 'Medical Records']
+                },
+                firstaid: {
+                    response: '🏥 **Essential First Aid Kit Items:**\n\n**Wound Care:**\n• Adhesive bandages (various sizes)\n• Sterile gauze pads\n• Medical tape\n• Antiseptic wipes\n• Tweezers & scissors\n• Disposable gloves\n\n**Medications:**\n• Pain relievers\n• Antihistamines\n• Antacids\n• Anti-diarrheal medication\n\n**Tools:**\n• Thermometer\n• CPR face shield\n• Hand sanitizer\n• Emergency contact info',
+                    quickReplies: ['Wound Care', 'Burns Treatment', 'Emergency Supplies', 'CPR Guide']
+                },
+                medical_terms: {
+                    response: '📚 **Common Medical Terms:**\n\n**Vital Signs:**\n• BP - Blood Pressure\n• HR - Heart Rate\n• Temp - Temperature\n• RR - Respiratory Rate\n\n**Conditions:**\n• Acute - Sudden onset\n• Chronic - Long-term\n• Benign - Not harmful\n• Malignant - Cancerous\n\n**Procedures:**\n• Biopsy - Tissue sample\n• CT/MRI - Imaging scans\n• EKG - Heart monitoring',
+                    quickReplies: ['More Terms', 'Medications', 'Lab Tests', 'Procedures']
+                }
+            };
 
-                const offlineResponses = {
-                    doctor: {
-                        response: '🩺 I can help you find doctors! Our specialists are available for consultations. Please note: I\'m currently offline, but I can still guide you.',
-                        quickReplies: ['View Doctors', 'Specialties', 'Book Appointment']
-                    },
-                    medicine: {
-                        response: '💊 I can assist with medicine information. While I\'m offline, you can browse our medicine catalog or upload a prescription.',
-                        quickReplies: ['Browse Medicines', 'Upload Prescription', 'Check Interactions']
-                    },
-                    test: {
-                        response: '🔬 Lab tests can be booked easily. I\'m currently offline, but you can still explore our test packages.',
-                        quickReplies: ['View Tests', 'Book Test', 'Home Collection']
-                    },
-                    default: {
-                        response: '👋 Hello! I\'m your healthcare assistant. I\'m currently in offline mode, but I can still help you navigate the platform.',
-                        quickReplies: ['Find Doctors', 'Book Tests', 'Order Medicines', 'Health Info']
-                    }
-                };
+            const offlineResponses = {
+                doctor: {
+                    response: '🩺 I can help you find doctors! Our specialists are available for consultations. Please note: I\'m currently offline, but I can still guide you.',
+                    quickReplies: ['View Doctors', 'Specialties', 'Book Appointment']
+                },
+                medicine: {
+                    response: '💊 I can assist with medicine information. While I\'m offline, you can browse our medicine catalog or upload a prescription.',
+                    quickReplies: ['Browse Medicines', 'Upload Prescription', 'Check Interactions']
+                },
+                test: {
+                    response: '🔬 Lab tests can be booked easily. I\'m currently offline, but you can still explore our test packages.',
+                    quickReplies: ['View Tests', 'Book Test', 'Home Collection']
+                },
+                hipaa: medicalKnowledge.hipaa,
+                'first aid': medicalKnowledge.firstaid,
+                'medical term': medicalKnowledge.medical_terms,
+                privacy: medicalKnowledge.hipaa,
+                emergency: medicalKnowledge.firstaid,
+                default: {
+                    response: '👋 Hello! I\'m your healthcare assistant trained in medical knowledge, HIPAA regulations, and first aid guidance.\n\n**I can help with:**\n• HIPAA privacy rules & patient rights\n• First aid kit essentials & emergency care\n• Medical terminology & healthcare info\n• Finding doctors & booking tests\n• Medicine information & prescriptions',
+                    quickReplies: ['HIPAA Info', 'First Aid Guide', 'Medical Terms', 'Find Doctors']
+                }
+            };
 
                 for (const [key, value] of Object.entries(offlineResponses)) {
                     if (lowerMessage.includes(key)) {
@@ -582,6 +677,424 @@
             }
         }
 
+        // ScrollStack Doctors Component
+        function ScrollStackDoctors({ active }) {
+            const scrollerRef = useRef(null);
+            const cardsRef = useRef([]);
+            const lastTransformsRef = useRef(new Map());
+
+            const doctors = [
+                {
+                    id: 1,
+                    name: "Dr. Sarah Johnson",
+                    specialty: "Cardiologist",
+                    experience: "15+ years",
+                    rating: 4.9,
+                    patients: "2,500+",
+                    availability: "Available Today",
+                    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
+                    gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+                },
+                {
+                    id: 2,
+                    name: "Dr. Michael Chen",
+                    specialty: "Neurologist",
+                    experience: "12+ years",
+                    rating: 4.8,
+                    patients: "1,800+",
+                    availability: "Available Tomorrow",
+                    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Michael",
+                    gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
+                },
+                {
+                    id: 3,
+                    name: "Dr. Emily Rodriguez",
+                    specialty: "Pediatrician",
+                    experience: "10+ years",
+                    rating: 4.9,
+                    patients: "3,200+",
+                    availability: "Available Today",
+                    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Emily",
+                    gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
+                },
+                {
+                    id: 4,
+                    name: "Dr. James Wilson",
+                    specialty: "Orthopedic Surgeon",
+                    experience: "18+ years",
+                    rating: 4.7,
+                    patients: "2,100+",
+                    availability: "Available This Week",
+                    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=James",
+                    gradient: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)"
+                },
+                {
+                    id: 5,
+                    name: "Dr. Priya Sharma",
+                    specialty: "Dermatologist",
+                    experience: "8+ years",
+                    rating: 4.8,
+                    patients: "1,500+",
+                    availability: "Available Today",
+                    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya",
+                    gradient: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)"
+                },
+                {
+                    id: 6,
+                    name: "Dr. Robert Taylor",
+                    specialty: "General Physician",
+                    experience: "20+ years",
+                    rating: 4.9,
+                    patients: "4,000+",
+                    availability: "Available Today",
+                    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Robert",
+                    gradient: "linear-gradient(135deg, #30cfd0 0%, #330867 100%)"
+                }
+            ];
+
+            useEffect(() => {
+                if (!active || !scrollerRef.current) return;
+
+                const cards = Array.from(scrollerRef.current.querySelectorAll('.scroll-stack-card'));
+                cardsRef.current = cards;
+
+                const itemStackDistance = 30;
+                const itemScale = 0.03;
+                const baseScale = 0.85;
+                const stackPosition = 0.2; // 20%
+
+                cards.forEach((card, i) => {
+                    if (i < cards.length - 1) {
+                        card.style.marginBottom = '100px';
+                    }
+                    card.style.willChange = 'transform';
+                    card.style.transformOrigin = 'top center';
+                    card.style.backfaceVisibility = 'hidden';
+                });
+
+                const handleScroll = () => {
+                    const scrollTop = scrollerRef.current.scrollTop;
+                    const containerHeight = scrollerRef.current.clientHeight;
+                    const stackPositionPx = stackPosition * containerHeight;
+
+                    cards.forEach((card, i) => {
+                        const cardTop = card.offsetTop;
+                        const triggerStart = cardTop - stackPositionPx - itemStackDistance * i;
+                        const triggerEnd = cardTop - containerHeight * 0.1;
+
+                        let scaleProgress = 0;
+                        if (scrollTop >= triggerStart && scrollTop <= triggerEnd) {
+                            scaleProgress = (scrollTop - triggerStart) / (triggerEnd - triggerStart);
+                        } else if (scrollTop > triggerEnd) {
+                            scaleProgress = 1;
+                        }
+
+                        const targetScale = baseScale + i * itemScale;
+                        const scale = 1 - scaleProgress * (1 - targetScale);
+
+                        const pinStart = triggerStart;
+                        const pinEnd = scrollerRef.current.scrollHeight - containerHeight - 200;
+
+                        let translateY = 0;
+                        if (scrollTop >= pinStart && scrollTop <= pinEnd) {
+                            translateY = scrollTop - cardTop + stackPositionPx + itemStackDistance * i;
+                        } else if (scrollTop > pinEnd) {
+                            translateY = pinEnd - cardTop + stackPositionPx + itemStackDistance * i;
+                        }
+
+                        const newTransform = {
+                            translateY: Math.round(translateY * 100) / 100,
+                            scale: Math.round(scale * 1000) / 1000
+                        };
+
+                        const lastTransform = lastTransformsRef.current.get(i);
+                        if (!lastTransform || 
+                            Math.abs(lastTransform.translateY - newTransform.translateY) > 0.1 ||
+                            Math.abs(lastTransform.scale - newTransform.scale) > 0.001) {
+                            
+                            card.style.transform = `translate3d(0, ${newTransform.translateY}px, 0) scale(${newTransform.scale})`;
+                            lastTransformsRef.current.set(i, newTransform);
+                        }
+                    });
+                };
+
+                scrollerRef.current.addEventListener('scroll', handleScroll);
+                handleScroll();
+
+                return () => {
+                    if (scrollerRef.current) {
+                        scrollerRef.current.removeEventListener('scroll', handleScroll);
+                    }
+                };
+            }, [active]);
+
+            if (!active) return null;
+
+            return (
+                <div ref={scrollerRef} style={{
+                    position: 'fixed',
+                    top: '140px',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: '90%',
+                    maxWidth: '900px',
+                    height: 'calc(100vh - 220px)',
+                    overflowY: 'auto',
+                    overflowX: 'visible',
+                    zIndex: 100,
+                    padding: '2rem 0'
+                }}>
+                    <div style={{ minHeight: '200vh', padding: '0 1rem' }}>
+                        <h2 style={{
+                            textAlign: 'center',
+                            fontSize: '2.5rem',
+                            fontWeight: '700',
+                            marginBottom: '3rem',
+                            background: 'linear-gradient(135deg, var(--color-primary), var(--color-secondary))',
+                            WebkitBackgroundClip: 'text',
+                            backgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent'
+                        }}>
+                            Meet Our Expert Doctors
+                        </h2>
+
+                        {doctors.map((doctor, index) => (
+                            <div key={doctor.id} className="scroll-stack-card" style={{
+                                background: doctor.gradient,
+                                borderRadius: '30px',
+                                padding: '2.5rem',
+                                boxShadow: '0 10px 40px rgba(0,0,0,0.15)',
+                                position: 'relative',
+                                height: 'auto',
+                                minHeight: '320px'
+                            }}>
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'flex-start',
+                                    gap: '2rem',
+                                    flexWrap: 'wrap'
+                                }}>
+                                    <div style={{
+                                        width: '120px',
+                                        height: '120px',
+                                        borderRadius: '50%',
+                                        background: 'white',
+                                        padding: '8px',
+                                        boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
+                                        flexShrink: 0
+                                    }}>
+                                        <img 
+                                            src={doctor.image}
+                                            alt={doctor.name}
+                                            style={{
+                                                width: '100%',
+                                                height: '100%',
+                                                borderRadius: '50%',
+                                                objectFit: 'cover'
+                                            }}
+                                        />
+                                    </div>
+
+                                    <div style={{ flex: 1, minWidth: '250px' }}>
+                                        <h3 style={{
+                                            fontSize: '2rem',
+                                            fontWeight: '800',
+                                            color: 'white',
+                                            marginBottom: '0.5rem',
+                                            textShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                                        }}>
+                                            {doctor.name}
+                                        </h3>
+                                        
+                                        <p style={{
+                                            fontSize: '1.3rem',
+                                            color: 'rgba(255,255,255,0.95)',
+                                            fontWeight: '600',
+                                            marginBottom: '1.5rem'
+                                        }}>
+                                            {doctor.specialty}
+                                        </p>
+
+                                        <div style={{
+                                            display: 'flex',
+                                            gap: '2rem',
+                                            flexWrap: 'wrap',
+                                            marginBottom: '1.5rem'
+                                        }}>
+                                            <div style={{
+                                                background: 'rgba(255,255,255,0.25)',
+                                                padding: '0.75rem 1.25rem',
+                                                borderRadius: '15px',
+                                                backdropFilter: 'blur(10px)'
+                                            }}>
+                                                <div style={{
+                                                    fontSize: '0.8rem',
+                                                    color: 'rgba(255,255,255,0.85)',
+                                                    marginBottom: '0.25rem'
+                                                }}>Experience</div>
+                                                <div style={{
+                                                    fontSize: '1.1rem',
+                                                    fontWeight: '700',
+                                                    color: 'white'
+                                                }}>{doctor.experience}</div>
+                                            </div>
+
+                                            <div style={{
+                                                background: 'rgba(255,255,255,0.25)',
+                                                padding: '0.75rem 1.25rem',
+                                                borderRadius: '15px',
+                                                backdropFilter: 'blur(10px)'
+                                            }}>
+                                                <div style={{
+                                                    fontSize: '0.8rem',
+                                                    color: 'rgba(255,255,255,0.85)',
+                                                    marginBottom: '0.25rem'
+                                                }}>Rating</div>
+                                                <div style={{
+                                                    fontSize: '1.1rem',
+                                                    fontWeight: '700',
+                                                    color: 'white',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '0.25rem'
+                                                }}>
+                                                    <i className="bi bi-star-fill"></i>
+                                                    {doctor.rating}
+                                                </div>
+                                            </div>
+
+                                            <div style={{
+                                                background: 'rgba(255,255,255,0.25)',
+                                                padding: '0.75rem 1.25rem',
+                                                borderRadius: '15px',
+                                                backdropFilter: 'blur(10px)'
+                                            }}>
+                                                <div style={{
+                                                    fontSize: '0.8rem',
+                                                    color: 'rgba(255,255,255,0.85)',
+                                                    marginBottom: '0.25rem'
+                                                }}>Patients</div>
+                                                <div style={{
+                                                    fontSize: '1.1rem',
+                                                    fontWeight: '700',
+                                                    color: 'white'
+                                                }}>{doctor.patients}</div>
+                                            </div>
+                                        </div>
+
+                                        <div style={{
+                                            display: 'flex',
+                                            gap: '1rem',
+                                            alignItems: 'center',
+                                            flexWrap: 'wrap'
+                                        }}>
+                                            <button 
+                                                onClick={() => {
+                                                    const now = new Date();
+                                                    const patientName = prompt(`Book appointment with ${doctor.name}\n\n👤 Enter your name:`);
+                                                    if (patientName && patientName.trim()) {
+                                                        const patientPhone = prompt('📞 Enter your phone number:');
+                                                        if (patientPhone && patientPhone.trim()) {
+                                                            const appointmentDate = prompt(`📅 Enter appointment date (YYYY-MM-DD):`, now.toISOString().split('T')[0]);
+                                                            if (appointmentDate) {
+                                                                const appointmentTime = prompt('🕐 Enter appointment time (HH:MM in 24-hour format):', '10:00');
+                                                                if (appointmentTime) {
+                                                                    const reasonForVisit = prompt('📝 Reason for visit (optional):');
+                                                                    
+                                                                    const bookingDetails = `
+✅ APPOINTMENT CONFIRMED!
+
+━━━━━━━━━━━━━━━━━━━━━━━
+📋 BOOKING DETAILS
+━━━━━━━━━━━━━━━━━━━━━━━
+
+👤 Patient: ${patientName}
+📞 Phone: ${patientPhone}
+
+👨‍⚕️ Doctor: ${doctor.name}
+🏥 Specialty: ${doctor.specialty}
+⭐ Rating: ${doctor.rating}
+
+📅 Date: ${appointmentDate}
+🕐 Time: ${appointmentTime}
+${reasonForVisit ? `📝 Reason: ${reasonForVisit}` : ''}
+
+━━━━━━━━━━━━━━━━━━━━━━━
+
+✉️ Confirmation sent to ${patientPhone}
+⏰ You will receive a reminder 1 day before
+📱 SMS reminder on appointment day
+
+Thank you for choosing MediSage!
+                                                                    `;
+                                                                    
+                                                                    alert(bookingDetails);
+                                                                    
+                                                                    // Booking day reminder
+                                                                    const appointmentDateTime = new Date(`${appointmentDate}T${appointmentTime}`);
+                                                                    const reminderTime = new Date(appointmentDateTime.getTime() - 24 * 60 * 60 * 1000);
+                                                                    
+                                                                    if (confirm('📲 Would you like to set a reminder for this appointment?')) {
+                                                                        alert(`⏰ Reminder set for ${reminderTime.toLocaleString()}\n\nWe'll send you a notification 24 hours before your appointment.`);
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }}
+                                                style={{
+                                                background: 'white',
+                                                color: '#1f2121',
+                                                border: 'none',
+                                                padding: '1rem 2rem',
+                                                borderRadius: '25px',
+                                                fontWeight: '700',
+                                                fontSize: '1rem',
+                                                cursor: 'pointer',
+                                                boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
+                                                transition: 'all 0.3s',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '0.5rem'
+                                            }}
+                                            onMouseOver={(e) => {
+                                                e.target.style.transform = 'translateY(-2px)';
+                                                e.target.style.boxShadow = '0 6px 20px rgba(0,0,0,0.3)';
+                                            }}
+                                            onMouseOut={(e) => {
+                                                e.target.style.transform = 'translateY(0)';
+                                                e.target.style.boxShadow = '0 4px 15px rgba(0,0,0,0.2)';
+                                            }}>
+                                                <i className="bi bi-calendar-check"></i>
+                                                Book Appointment
+                                            </button>
+
+                                            <div style={{
+                                                background: 'rgba(255,255,255,0.3)',
+                                                padding: '0.75rem 1.5rem',
+                                                borderRadius: '20px',
+                                                color: 'white',
+                                                fontWeight: '600',
+                                                fontSize: '0.9rem',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '0.5rem'
+                                            }}>
+                                                <i className="bi bi-clock"></i>
+                                                {doctor.availability}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+
+                        <div style={{ height: '100px' }}></div>
+                    </div>
+                </div>
+            );
+        }
+
         // Turtle AI Chat Component
         function TurtleAIChat({ active }) {
             const [messages, setMessages] = useState([]);
@@ -595,8 +1108,8 @@
                     setMessages([{
                         id: Date.now(),
                         type: 'bot',
-                        text: '👋 Hello! I\'m Turtle AI, your healthcare assistant. How can I help you today?',
-                        quickReplies: ['Find Doctors', 'Book Lab Test', 'Order Medicine', 'Health Tips'],
+                        text: '👋 Hello! I\'m Turtle AI, your intelligent medical assistant.\n\n**I\'m trained in:**\n• 🔒 HIPAA privacy regulations & patient rights\n• 🏥 First aid procedures & emergency care\n• 📚 Medical terminology & healthcare information\n• 💊 Medication guidance & drug interactions\n• 🩺 Symptom assessment & doctor recommendations\n\nHow can I assist you today?',
+                        quickReplies: ['HIPAA Info', 'First Aid Guide', 'Medical Terms', 'Find Doctors'],
                         timestamp: new Date()
                     }]);
                 }
@@ -659,28 +1172,25 @@
             return (
                 <div style={{
                     position: 'fixed',
-                    top: '140px',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    width: '90%',
-                    maxWidth: '800px',
-                    height: 'calc(100vh - 220px)',
+                    top: '0',
+                    left: '0',
+                    width: '100vw',
+                    height: '100vh',
                     background: 'white',
-                    borderRadius: '20px',
-                    boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
                     display: 'flex',
                     flexDirection: 'column',
                     overflow: 'hidden',
-                    zIndex: 100
+                    zIndex: 2000
                 }}>
-                    {/* Chat Header */}
+                    {/* Turtle AI Full Page Header */}
                     <div style={{
                         background: 'linear-gradient(135deg, #138808, #0090d9)',
                         color: 'white',
-                        padding: '1.5rem',
+                        padding: '1rem 2rem',
                         display: 'flex',
                         justifyContent: 'space-between',
-                        alignItems: 'center'
+                        alignItems: 'center',
+                        boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
                     }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                             <div style={{
@@ -696,30 +1206,65 @@
                                 🐢
                             </div>
                             <div>
-                                <div style={{ fontWeight: '700', fontSize: '1.2rem' }}>Turtle AI</div>
-                                <div style={{ fontSize: '0.85rem', opacity: 0.9 }}>Healthcare Assistant</div>
+                                <div style={{ fontWeight: '700', fontSize: '1.5rem' }}>Turtle AI</div>
+                                <div style={{ fontSize: '0.9rem', opacity: 0.9 }}>Medical Assistant • HIPAA Compliant</div>
                             </div>
                         </div>
-                        <button
-                            onClick={handleClearChat}
-                            style={{
-                                background: 'rgba(255,255,255,0.2)',
-                                border: 'none',
-                                color: 'white',
-                                padding: '0.5rem 1rem',
-                                borderRadius: '10px',
-                                cursor: 'pointer',
-                                fontSize: '0.9rem',
-                                fontWeight: '600',
-                                transition: 'all 0.3s'
-                            }}
-                            onMouseOver={(e) => e.target.style.background = 'rgba(255,255,255,0.3)'}
-                            onMouseOut={(e) => e.target.style.background = 'rgba(255,255,255,0.2)'}
-                        >
-                            <i className="bi bi-trash"></i> Clear
-                        </button>
+                        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                            <button
+                                onClick={handleClearChat}
+                                style={{
+                                    background: 'rgba(255,255,255,0.2)',
+                                    border: 'none',
+                                    color: 'white',
+                                    padding: '0.75rem 1.25rem',
+                                    borderRadius: '12px',
+                                    cursor: 'pointer',
+                                    fontSize: '0.95rem',
+                                    fontWeight: '600',
+                                    transition: 'all 0.3s',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '0.5rem'
+                                }}
+                                onMouseOver={(e) => e.target.style.background = 'rgba(255,255,255,0.3)'}
+                                onMouseOut={(e) => e.target.style.background = 'rgba(255,255,255,0.2)'}
+                            >
+                                <i className="bi bi-trash"></i> Clear Chat
+                            </button>
+                            <button
+                                onClick={() => window.location.reload()}
+                                style={{
+                                    background: 'rgba(255,255,255,0.95)',
+                                    border: 'none',
+                                    color: '#138808',
+                                    padding: '0.75rem 1.25rem',
+                                    borderRadius: '12px',
+                                    cursor: 'pointer',
+                                    fontSize: '0.95rem',
+                                    fontWeight: '600',
+                                    transition: 'all 0.3s',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '0.5rem'
+                                }}
+                                onMouseOver={(e) => e.target.style.background = 'white'}
+                                onMouseOut={(e) => e.target.style.background = 'rgba(255,255,255,0.95)'}
+                            >
+                                <i className="bi bi-house-fill"></i> Home
+                            </button>
+                        </div>
                     </div>
 
+                <div style={{
+                    flex: 1,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    overflow: 'hidden',
+                    maxWidth: '1400px',
+                    margin: '0 auto',
+                    width: '100%'
+                }}>
                     {/* Messages Container */}
                     <div style={{
                         flex: 1,
@@ -840,9 +1385,10 @@
 
                     {/* Input Area */}
                     <div style={{
-                        padding: '1.5rem',
+                        padding: '1.5rem 2rem',
                         background: 'white',
-                        borderTop: '1px solid #e0e0e0'
+                        borderTop: '1px solid #e0e0e0',
+                        boxShadow: '0 -2px 10px rgba(0,0,0,0.05)'
                     }}>
                         <div style={{
                             display: 'flex',
@@ -932,12 +1478,7 @@
                     <div className="top-header">
                         <div className="container-custom">
                             <div className="d-flex justify-content-between align-items-center">
-                                <div className="d-flex align-items-center gap-3">
-                                    <img 
-                                        src="https://i.postimg.cc/JhCCv05w/Image.png" 
-                                        alt="MediSage Logo" 
-                                        className="logo-img"
-                                    />
+                                <div className="d-flex justify-content-center align-items-center" style={{flex: 1}}>
                                     <span className="logo-text">MediSage</span>
                                 </div>
 
@@ -958,28 +1499,47 @@
                         </div>
                     </div>
 
-                    {/* Motion Dock Navigation */}
-                    <div className="motion-dock-container">
-                        <div className="dock-outer">
-                            <div className="dock-panel">
-                                {dockItems.map(item => (
-                                    <div 
-                                        key={item.id}
-                                        className={`dock-item ${activePage === item.id ? 'active' : ''}`}
-                                        onClick={() => setActivePage(item.id)}
-                                    >
-                                        <div className="dock-icon">
-                                            <i className={`bi bi-${item.icon}`}></i>
+                    {/* Hover Panel Navigation - Hide on home page */}
+                    {activePage !== 'home' && (
+                        <div className="hover-panel">
+                            {dockItems.map(item => (
+                                <div 
+                                    key={item.id}
+                                    className={`hover-panel-item ${activePage === item.id ? 'active' : ''}`}
+                                    onClick={() => setActivePage(item.id)}
+                                >
+                                    <i className={`bi bi-${item.icon} hover-panel-icon`}></i>
+                                    <div className="hover-panel-tooltip">{item.label}</div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
+                    {/* Motion Dock Navigation - Only show on home page */}
+                    {activePage === 'home' && (
+                        <div className="motion-dock-container">
+                            <div className="dock-outer">
+                                <div className="dock-panel">
+                                    {dockItems.map(item => (
+                                        <div 
+                                            key={item.id}
+                                            className={`dock-item ${activePage === item.id ? 'active' : ''}`}
+                                            onClick={() => setActivePage(item.id)}
+                                        >
+                                            <div className="dock-icon">
+                                                <i className={`bi bi-${item.icon}`}></i>
+                                            </div>
+                                            <div className="dock-label">{item.label}</div>
                                         </div>
-                                        <div className="dock-label">{item.label}</div>
-                                    </div>
-                                ))}
+                                    ))}
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    )}
 
-                    {/* Category Navigation */}
-                    <div className="category-nav">
+                    {/* Category Navigation - Only show on home page */}
+                    {activePage === 'home' && (
+                        <div className="category-nav">
                         <div className="container-custom">
                             <div className="category-pills">
                                 {categories.map(category => (
@@ -994,6 +1554,7 @@
                             </div>
                         </div>
                     </div>
+                    )}
 
                     {/* HOME PAGE */}
                     <div className={`page-section ${activePage === 'home' ? 'active' : ''}`}>
@@ -1066,16 +1627,227 @@
 
                     {/* Other Pages Placeholders */}
                     <div className={`page-section ${activePage === 'doctors' ? 'active' : ''}`}>
-                        <div className="container-custom" style={{minHeight: '400px', paddingTop: '2rem'}}>
-                            <h2 className="section-title">Find Doctors</h2>
-                            <p style={{textAlign: 'center', color: '#777'}}>Doctor listing coming soon...</p>
-                        </div>
+                        <ScrollStackDoctors active={activePage === 'doctors'} />
                     </div>
 
                     <div className={`page-section ${activePage === 'lab-tests' ? 'active' : ''}`}>
-                        <div className="container-custom" style={{minHeight: '400px', paddingTop: '2rem'}}>
-                            <h2 className="section-title">Lab Tests</h2>
-                            <p style={{textAlign: 'center', color: '#777'}}>Lab tests catalog coming soon...</p>
+                        <div className="container-custom" style={{minHeight: '400px', paddingTop: '2rem', paddingBottom: '4rem'}}>
+                            <h2 className="section-title">Lab Tests & Health Checkups</h2>
+                            
+                            <div className="row g-4" style={{marginTop: '2rem'}}>
+                                {[
+                                    {
+                                        name: 'Complete Blood Count (CBC)',
+                                        price: '₹399',
+                                        description: 'Measures red cells, white cells, platelets',
+                                        icon: 'droplet-fill',
+                                        color: '#e74c3c'
+                                    },
+                                    {
+                                        name: 'Lipid Profile',
+                                        price: '₹599',
+                                        description: 'Cholesterol & triglycerides test',
+                                        icon: 'heart-pulse-fill',
+                                        color: '#e91e63'
+                                    },
+                                    {
+                                        name: 'Diabetes Screening',
+                                        price: '₹299',
+                                        description: 'Fasting & random blood sugar test',
+                                        icon: 'activity',
+                                        color: '#9c27b0'
+                                    },
+                                    {
+                                        name: 'Thyroid Function Test',
+                                        price: '₹699',
+                                        description: 'T3, T4, TSH hormone levels',
+                                        icon: 'thermometer-half',
+                                        color: '#3f51b5'
+                                    },
+                                    {
+                                        name: 'Liver Function Test',
+                                        price: '₹799',
+                                        description: 'Complete liver health assessment',
+                                        icon: 'lungs',
+                                        color: '#00bcd4'
+                                    },
+                                    {
+                                        name: 'Kidney Function Test',
+                                        price: '₹499',
+                                        description: 'Creatinine, urea, electrolytes',
+                                        icon: 'capsule-pill',
+                                        color: '#009688'
+                                    },
+                                    {
+                                        name: 'Vitamin D Test',
+                                        price: '₹899',
+                                        description: 'Vitamin D3 levels check',
+                                        icon: 'sun-fill',
+                                        color: '#ff9800'
+                                    },
+                                    {
+                                        name: 'Full Body Checkup',
+                                        price: '₹2,499',
+                                        description: '50+ tests included',
+                                        icon: 'clipboard2-pulse-fill',
+                                        color: '#4caf50'
+                                    }
+                                ].map((test, idx) => (
+                                    <div key={idx} className="col-md-6 col-lg-3">
+                                        <div style={{
+                                            background: 'white',
+                                            borderRadius: '20px',
+                                            padding: '1.5rem',
+                                            boxShadow: '0 4px 15px rgba(0,0,0,0.08)',
+                                            transition: 'all 0.3s',
+                                            cursor: 'pointer',
+                                            height: '100%',
+                                            display: 'flex',
+                                            flexDirection: 'column'
+                                        }}
+                                        onMouseOver={(e) => {
+                                            e.currentTarget.style.transform = 'translateY(-8px)';
+                                            e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.15)';
+                                        }}
+                                        onMouseOut={(e) => {
+                                            e.currentTarget.style.transform = 'translateY(0)';
+                                            e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.08)';
+                                        }}>
+                                            <div style={{
+                                                width: '60px',
+                                                height: '60px',
+                                                borderRadius: '15px',
+                                                background: `${test.color}15`,
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                marginBottom: '1rem'
+                                            }}>
+                                                <i className={`bi bi-${test.icon}`} style={{
+                                                    fontSize: '1.8rem',
+                                                    color: test.color
+                                                }}></i>
+                                            </div>
+                                            
+                                            <h3 style={{
+                                                fontSize: '1.1rem',
+                                                fontWeight: '700',
+                                                marginBottom: '0.5rem',
+                                                color: '#1f2121'
+                                            }}>{test.name}</h3>
+                                            
+                                            <p style={{
+                                                fontSize: '0.85rem',
+                                                color: '#777',
+                                                marginBottom: '1rem',
+                                                flex: 1
+                                            }}>{test.description}</p>
+                                            
+                                            <div style={{
+                                                display: 'flex',
+                                                justifyContent: 'space-between',
+                                                alignItems: 'center',
+                                                marginTop: 'auto'
+                                            }}>
+                                                <span style={{
+                                                    fontSize: '1.5rem',
+                                                    fontWeight: '800',
+                                                    color: test.color
+                                                }}>{test.price}</span>
+                                                
+                                                <button
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        e.stopPropagation();
+                                                        const now = new Date();
+                                                        const patientName = prompt(`Book ${test.name}\n\n👤 Enter your name:`);
+                                                        if (patientName && patientName.trim()) {
+                                                            const patientPhone = prompt('📞 Enter your phone number:');
+                                                            if (patientPhone && patientPhone.trim()) {
+                                                                const patientAge = prompt('👶 Enter your age:');
+                                                                if (patientAge) {
+                                                                    const testDate = prompt(`📅 Enter test date (YYYY-MM-DD):`, now.toISOString().split('T')[0]);
+                                                                    if (testDate) {
+                                                                        const testTime = prompt('🕐 Preferred time slot:\n\n1. Morning (7-10 AM)\n2. Afternoon (12-3 PM)\n3. Evening (4-7 PM)\n\nEnter time (HH:MM):', '08:00');
+                                                                        if (testTime) {
+                                                                            const homeCollection = confirm('🏠 Would you like home sample collection?\n\n(Additional ₹100 for home visit)');
+                                                                            const address = homeCollection ? prompt('📍 Enter your address for home collection:') : null;
+                                                                            
+                                                                            const totalPrice = homeCollection ? 
+                                                                                `${test.price} + ₹100 (Home Collection) = ₹${parseInt(test.price.replace('₹', '').replace(',', '')) + 100}` : 
+                                                                                test.price;
+                                                                            
+                                                                            const bookingDetails = `
+✅ LAB TEST BOOKED!
+
+━━━━━━━━━━━━━━━━━━━━━━━
+📋 BOOKING DETAILS
+━━━━━━━━━━━━━━━━━━━━━━━
+
+👤 Patient: ${patientName}
+📞 Phone: ${patientPhone}
+👶 Age: ${patientAge}
+
+🔬 Test: ${test.name}
+💰 Price: ${totalPrice}
+
+📅 Date: ${testDate}
+🕐 Time: ${testTime}
+
+${homeCollection ? `🏠 Home Collection: Yes\n📍 Address: ${address}` : '🏥 Visit Lab: Yes'}
+
+━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 Fasting Required: Check test guidelines
+✉️ Confirmation sent to ${patientPhone}
+⏰ You will receive a reminder 1 day before
+📱 SMS reminder on test day
+
+Thank you for choosing MediSage!
+                                                                            `;
+                                                                            
+                                                                            alert(bookingDetails);
+                                                                            
+                                                                            // Test day reminder
+                                                                            const testDateTime = new Date(`${testDate}T${testTime}`);
+                                                                            const reminderTime = new Date(testDateTime.getTime() - 24 * 60 * 60 * 1000);
+                                                                            
+                                                                            if (confirm('📲 Would you like to set a reminder for this test?')) {
+                                                                                alert(`⏰ Reminder set for ${reminderTime.toLocaleString()}\n\nWe'll send you:\n• Fasting instructions (if required)\n• Collection time reminder\n• Preparation guidelines`);
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }}
+                                                    style={{
+                                                        background: test.color,
+                                                        color: 'white',
+                                                        border: 'none',
+                                                        padding: '0.6rem 1.2rem',
+                                                        borderRadius: '15px',
+                                                        fontWeight: '600',
+                                                        fontSize: '0.85rem',
+                                                        cursor: 'pointer',
+                                                        transition: 'all 0.3s'
+                                                    }}
+                                                    onMouseOver={(e) => {
+                                                        e.target.style.transform = 'scale(1.05)';
+                                                        e.target.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
+                                                    }}
+                                                    onMouseOut={(e) => {
+                                                        e.target.style.transform = 'scale(1)';
+                                                        e.target.style.boxShadow = 'none';
+                                                    }}
+                                                >
+                                                    Book Now
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
 
@@ -1088,14 +1860,16 @@
 
                     <TurtleAIChat active={activePage === 'turtle-ai'} />
 
-                    {/* Footer */}
-                    <footer className="footer">
-                        <div className="container-custom">
-                            <p className="footer-text">
-                                &copy; 2025 MediSage. All rights reserved. | Healthcare Platform for Digital Assistance
-                            </p>
-                        </div>
-                    </footer>
+                    {/* Footer - Only show on home page */}
+                    {activePage === 'home' && (
+                        <footer className="footer">
+                            <div className="container-custom">
+                                <p className="footer-text">
+                                    &copy; 2025 MediSage. All rights reserved. | Healthcare Platform for Digital Assistance
+                                </p>
+                            </div>
+                        </footer>
+                    )}
                 </>
             );
         }

@@ -5,14 +5,10 @@
   will-change: transform;
   line-height: 1;
   font-size: 4rem;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 700;
+  font-family: 'Press Start 2P', sans-serif;
   text-transform: uppercase;
   visibility: hidden;
-  background: linear-gradient(135deg, #138808, #0090d9);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #ffffff;
 }
 
 .shuffle-parent.is-ready {

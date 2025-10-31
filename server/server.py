@@ -2,7 +2,7 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import Optional, List, Dict
+from typing import Optional, List, Dict, AsyncGenerator
 import uvicorn
 from datetime import datetime
 import json
@@ -122,7 +122,7 @@ class TurtleAIEngine:
             }
         }
     
-    async def stream_response(self, message: str, intent: str) -> str:
+    async def stream_response(self, message: str, intent: str) -> AsyncGenerator[str, None]:
         """Generate streaming response"""
         response_data = self.generate_response(message, intent)
         response_text = response_data['response']
